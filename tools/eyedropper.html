@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>pxsl.dev | Eyedropper</title>
+  <title>pxsl.dev | eyedropper</title>
   <link rel="stylesheet" href="../styles.css" />
+  <script src="/scripts/versionloader.js"></script>
   <style>
     body {
       background: var(--bg);
@@ -109,6 +110,7 @@
 
 <body>
   <h1>Eyedropper Tool</h1>
+  <a href="../pages/tools.html" class="back-link">← Back to Tools</a>
   <label for="imageLoader" class="upload-label">Upload Image</label>
   <input type="file" accept="image/*" id="imageLoader" />
 
@@ -121,8 +123,6 @@
     <div class="code" id="rgb">rgb(168, 85, 247)</div>
     <div class="code" id="hsl">hsl(268, 90%, 65%)</div>
   </div>
-
-  <a href="../pages/tools.html" class="back-link">← Back to Tools</a>
 
   <script>
     const canvas = document.getElementById('canvas');
@@ -208,5 +208,9 @@
       });
     });
   </script>
+
+  <footer id="site-footer">
+    pxsl.dev - vX.X.X - made by pxsl
+  </footer>
 </body>
 </html>
