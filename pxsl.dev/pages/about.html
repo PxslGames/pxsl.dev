@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | about</title>
+  <script src="/scripts/versionloader.js"></script>
+<style>
+  /* Root colors */
+  :root {
+    --bg: #1e1b2f;
+    --accent: #a855f7;
+    --text: #f5f3ff;
+    --highlight: #ff3c3c;
+    --card-bg: #2a223f;
+  }
+
+  /* Reset & basics */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    user-select: none;
+  }
+
+  h1 {
+    font-size: 4rem;
+    margin: 0;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    /* removed uppercase */
+  }
+
+  h2 {
+    margin: 0.2rem 0 1.5rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+    /* removed uppercase */
+  }
+
+  /* Container for main content */
+  .container {
+    max-width: 600px;
+    width: 100%;
+    background: var(--card-bg);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+
+  /* Profile pic container */
+  .profile-pic {
+    width: 140px;
+    height: 140px;
+    background: var(--highlight);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    border: 4px solid var(--accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    overflow: hidden; /* clip image corners */
+  }
+
+  /* Profile pic image */
+  .profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* resize and crop to fill */
+    border-radius: 50%;
+    display: block;
+  }
+
+  /* Quick info grid */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .info-item {
+    background: #382d5a;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    user-select: text;
+    cursor: default;
+    transition: background-color 0.25s ease;
+  }
+
+  .info-item:hover {
+    background-color: var(--accent);
+    color: var(--bg);
+  }
+
+  .info-label {
+    font-size: 0.75rem;
+    /* removed uppercase */
+    opacity: 0.6;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .info-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* Bio paragraph */
+  .bio {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--text);
+    opacity: 0.9;
+    margin-bottom: 2rem;
+  }
+
+  /* Links styled like cards */
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .link-card {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    user-select: none;
+    flex: 1 1 150px;
+    text-align: center;
+  }
+
+  .link-card:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* Footer */
+  footer {
+    margin-top: auto;
+    opacity: 0.3;
+    font-size: 0.9rem;
+    user-select: none;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 3rem;
+    }
+    .container {
+      padding: 1.5rem;
+    }
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-width: 3px;
+      margin-bottom: 1rem;
+    }
+    .info-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CEN3W87631');
+</script>
+<body>
+
+  <h1>pxsl.</h1>
+  <h2>coder | creator | chaos</h2>
+
+  <div class="container">
+    <div class="profile-pic" aria-label="Profile Icon">
+        <img src="/assets/Pxsl.png" alt="Pxsl profile" />
+    </div>
+
+    <div class="info-grid" role="list">
+      <div class="info-item" role="listitem">
+        <div class="info-label">Location</div>
+        <div class="info-value">idk somewhere ig</div>
+      </div>
+      <div class="info-item" role="listitem">
+        <div class="info-label">Favorite Languages</div>
+        <div class="info-value">Python &amp; C#</div>
+      </div>
+      <div class="info-item" role="listitem">
+        <div class="info-label">Current Project</div>
+        <div class="info-value">Vexus Client</div>
+      </div>
+      <div class="info-item" role="listitem">
+        <div class="info-label">Status</div>
+        <div class="info-value">coding pxsl.dev and vexus client</div>
+      </div>
+    </div>
+
+    <p class="bio">
+      Hi There! I'm Pxsl, and I love coding. I love making software, and I especially love modding games, specifically Gorilla Tag. I'm currently working on Vexus Client, a cheat menu with 120+ mods. Click on some of the links below to find out more!
+    </p>
+
+    <div class="links" role="list">
+      <a href="projects.html" class="link-card" role="listitem">🛠️ Projects</a>
+      <a href="tools.html" class="link-card" role="listitem">🧰 Tools</a>
+      <a href="../index.html" class="link-card" role="listitem">🏠 pxsl.dev</a>
+      <a href="https://github.com/PxslGames" target="_blank" rel="noopener noreferrer" class="link-card" role="listitem">🐙 GitHub</a>
+      <a href="https://www.youtube.com/@PxslOnYT" target="_blank" rel="noopener noreferrer" class="link-card" role="listitem">📺 YouTube</a>
+    </div>
+  </div>
+
+</body>
+</html>

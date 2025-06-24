@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | eyedropper</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="/scripts/versionloader.js"></script>
+  <style>
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: var(--accent);
+    }
+
+    .upload-label {
+      display: inline-block;
+      background: var(--card-bg);
+      border: 2px solid var(--accent);
+      color: var(--text);
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .upload-label:hover {
+      background: #382d5a;
+    }
+
+    #imageLoader {
+      display: none;
+    }
+
+    canvas {
+      max-width: 100%;
+      border: 2px solid var(--accent);
+      border-radius: 0.5rem;
+      cursor: crosshair;
+      width: 500px;
+      height: 500px;
+      image-rendering: crisp-edges;
+    }
+
+    .color-preview {
+      margin: 1.5rem auto;
+      width: 100px;
+      height: 100px;
+      border: 2px solid var(--accent);
+      border-radius: 0.5rem;
+    }
+
+    .codes {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .code {
+      background: var(--card-bg);
+      border: 2px solid var(--accent);
+      border-radius: 0.5rem;
+      padding: 0.6rem 1rem;
+      font-family: monospace;
+      color: var(--accent);
+      cursor: pointer;
+      user-select: text;
+    }
+
+    .code:hover {
+      background: #382d5a;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 0.5rem;
+    }
+
+    a.back-link:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+  </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CEN3W87631');
+</script>
+
+<canvas id="zoomCanvas" width="150" height="150" style="position:absolute; display:none; border:2px solid var(--accent); border-radius:0.5rem; z-index:10;"></canvas>
+
+<body>
+  <h1>Eyedropper Tool</h1>
+  <a href="../pages/tools.html" class="back-link">← Back to Tools</a>
+  <label for="imageLoader" class="upload-label">Upload Image</label>
+  <input type="file" accept="image/*" id="imageLoader" />
+
+  <canvas id="canvas" width="500" height="500"></canvas>
+
+  <div class="color-preview" id="preview"></div>
+
+  <div class="codes">
+    <div class="code" id="hex">#a855f7</div>
+    <div class="code" id="rgb">rgb(168, 85, 247)</div>
+    <div class="code" id="hsl">hsl(268, 90%, 65%)</div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const loader = document.getElementById('imageLoader');
+    const preview = document.getElementById('preview');
+    const hexEl = document.getElementById('hex');
+    const rgbEl = document.getElementById('rgb');
+    const hslEl = document.getElementById('hsl');
+
+    function rgbToHex(r, g, b) {
+      return "#" + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h = Math.round(h * 60);
+        if (h < 0) h += 360;
+      }
+
+      s = Math.round(s * 100);
+      l = Math.round(l * 100);
+      return `hsl(${h}, ${s}%, ${l}%)`;
+    }
+
+    function updateColor(r, g, b) {
+      const hex = rgbToHex(r, g, b);
+      const rgb = `rgb(${r}, ${g}, ${b})`;
+      const hsl = rgbToHsl(r, g, b);
+      preview.style.backgroundColor = hex;
+      hexEl.textContent = hex;
+      rgbEl.textContent = rgb;
+      hslEl.textContent = hsl;
+    }
+
+    canvas.addEventListener('click', e => {
+      const rect = canvas.getBoundingClientRect();
+      const x = Math.floor(e.clientX - rect.left);
+      const y = Math.floor(e.clientY - rect.top);
+      const pixel = ctx.getImageData(x, y, 1, 1).data;
+      updateColor(pixel[0], pixel[1], pixel[2]);
+    });
+
+    loader.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = event => {
+        img.onload = () => {
+          // Scale image into 500x500 canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = event.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    // Copy functionality
+    [hexEl, rgbEl, hslEl].forEach(el => {
+      el.addEventListener('click', () => {
+        navigator.clipboard.writeText(el.textContent);
+        const original = el.textContent;
+        el.textContent = "Copied!";
+        setTimeout(() => el.textContent = original, 1000);
+      });
+    });
+  </script>
+
+  <footer id="site-footer">
+    pxsl.dev - vX.X.X - made by pxsl
+  </footer>
+</body>
+</html>
