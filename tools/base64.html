@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | base64 editor</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="/scripts/versionloader.js"></script>
+
+  <style>
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      margin: 0;
+      user-select: none;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2.8rem;
+      color: var(--accent);
+      user-select: text;
+    }
+
+    a.back-link {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1.5px solid var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      user-select: text;
+    }
+    a.back-link:hover {
+      background-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .container {
+      margin: 2rem 0;
+      max-width: 700px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      user-select: text;
+    }
+
+    label {
+      font-weight: 600;
+      user-select: text;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      font-family: monospace;
+      font-size: 1.1rem;
+      padding: 1rem;
+      border: 2px solid var(--accent);
+      border-radius: 0.75rem;
+      background-color: var(--card-bg);
+      color: var(--text);
+      resize: vertical;
+      outline: none;
+    }
+
+    input[type="file"] {
+      border: 2px solid var(--accent);
+      border-radius: 0.75rem;
+      padding: 0.5rem;
+      background-color: var(--card-bg);
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background-color: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.25s ease;
+    }
+    button:hover {
+      background-color: #9333ea;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .copy-btn {
+      width: fit-content;
+      align-self: flex-start;
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+      background-color: #44475a;
+      color: var(--text);
+      user-select: none;
+      border-radius: 0.5rem;
+      border: none;
+      transition: background-color 0.25s ease;
+    }
+    .copy-btn:hover:not(:disabled) {
+      background-color: var(--accent);
+      color: var(--bg);
+    }
+
+    @media (max-width: 480px) {
+      textarea {
+        height: 120px;
+      }
+      .btn-group {
+        flex-direction: column;
+      }
+      button {
+        width: 100%;
+      }
+      .copy-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Base64 Editor</h1>
+  <a href="../pages/tools.html" class="back-link">← Back to Tools</a>
+
+  <div class="container">
+
+    <label for="inputText">Input Text or Base64:</label>
+    <textarea id="inputText" placeholder="Type or paste text here..."></textarea>
+
+    <div class="btn-group">
+      <button id="encodeBtn">Encode to Base64</button>
+      <button id="decodeBtn">Decode from Base64</button>
+    </div>
+
+    <label for="outputText">Output:</label>
+    <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
+
+    <button id="copyOutput" class="copy-btn">Copy Output</button>
+
+  </div>
+
+  <script>
+    const inputText = document.getElementById('inputText');
+    const outputText = document.getElementById('outputText');
+    const fileInput = document.getElementById('fileInput');
+    const encodeBtn = document.getElementById('encodeBtn');
+    const decodeBtn = document.getElementById('decodeBtn');
+    const copyBtn = document.getElementById('copyOutput');
+
+    function utf8ToBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+    function base64ToUtf8(str) {
+      return decodeURIComponent(escape(atob(str)));
+    }
+
+    encodeBtn.addEventListener('click', () => {
+      const text = inputText.value.trim();
+      if (!text) {
+        outputText.value = 'Please enter some text to encode.';
+        return;
+      }
+      try {
+        outputText.value = utf8ToBase64(text);
+      } catch {
+        outputText.value = 'Error encoding text.';
+      }
+    });
+
+    decodeBtn.addEventListener('click', () => {
+      const text = inputText.value.trim();
+      if (!text) {
+        outputText.value = 'Please enter some Base64 text to decode.';
+        return;
+      }
+      try {
+        outputText.value = base64ToUtf8(text);
+      } catch {
+        outputText.value = 'Error decoding Base64.';
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        // reader.result is like "data:<mime>;base64,<data>"
+        const base64String = reader.result.split(',')[1];
+        outputText.value = base64String;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    copyBtn.addEventListener('click', () => {
+      if (!outputText.value) return;
+      navigator.clipboard.writeText(outputText.value).then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => (copyBtn.textContent = 'Copy Output'), 1500);
+      });
+    });
+  </script>
+
+  <footer id="site-footer">
+    pxsl.dev - vX.X.X - made by pxsl
+  </footer>
+</body>
+</html>

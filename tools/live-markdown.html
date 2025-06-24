@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | live markdown</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="/scripts/versionloader.js"></script>
+
+  <!-- Marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      margin: 0;
+      user-select: none;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2.8rem;
+      color: var(--accent);
+      user-select: text;
+    }
+
+    a.back-link {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1.5px solid var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      user-select: text;
+    }
+    a.back-link:hover {
+      background-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .markdown-container {
+      margin: 2rem 0;
+      display: flex;
+      gap: 2rem;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    textarea {
+      flex: 1;
+      height: 400px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 1.1rem;
+      border: 2px solid var(--accent);
+      border-radius: 0.75rem;
+      resize: vertical;
+      background-color: var(--card-bg);
+      color: var(--text);
+      outline: none;
+      user-select: text;
+    }
+
+    .preview {
+      flex: 1;
+      height: 400px;
+      overflow-y: auto;
+      padding: 1rem;
+      background-color: var(--card-bg);
+      border: 2px solid var(--accent);
+      border-radius: 0.75rem;
+      user-select: text;
+    }
+
+    /* Style for common markdown elements inside preview */
+    .preview h1, .preview h2, .preview h3 {
+      color: var(--accent);
+      margin-top: 0;
+    }
+    .preview pre {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    .preview code {
+      background: #44475a;
+      padding: 0.15rem 0.3rem;
+      border-radius: 0.3rem;
+      font-size: 0.9rem;
+    }
+    .preview blockquote {
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+      color: #aaa;
+      font-style: italic;
+      margin: 1rem 0;
+    }
+
+    @media (max-width: 720px) {
+      .markdown-container {
+        flex-direction: column;
+      }
+      textarea, .preview {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CEN3W87631');
+</script>
+
+<body>
+
+  <h1>Live Markdown</h1>
+  <a href="../pages/tools.html" class="back-link">← Back to Tools</a>
+
+  <div class="markdown-container">
+    <textarea id="md-input" spellcheck="false" placeholder="Type your markdown here..."># Welcome to Live Markdown!
+
+Type **Markdown** on the left, and see the *live preview* on the right.
+
+- Easy to use  
+- Fast  
+- Works offline  
+</textarea>
+    <div id="md-preview" class="preview"></div>
+  </div>
+
+  <script>
+    const input = document.getElementById('md-input');
+    const preview = document.getElementById('md-preview');
+
+    function updatePreview() {
+      const markdownText = input.value;
+      // Use marked.js to convert markdown to HTML safely
+      preview.innerHTML = marked.parse(markdownText, { 
+        gfm: true, 
+        breaks: true,
+        sanitize: false
+      });
+    }
+
+    input.addEventListener('input', updatePreview);
+
+    // Initialize preview on load
+    updatePreview();
+  </script>
+
+  <footer id="site-footer">
+    pxsl.dev - vX.X.X - made by pxsl
+  </footer>
+</body>
+</html>
