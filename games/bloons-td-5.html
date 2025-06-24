@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>pxsl.dev | games</title>
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+<script src="/scripts/versionloader.js"></script>
+<style>
+    :root {
+        --bg: #1e1b2f;
+        --accent: #a855f7;
+        --text: #f5f3ff;
+        --card-bg: #2a223f;
+    }
+
+    html, body {
+    margin: 0; padding: 0; height: 100%; width: 100%;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    h1 {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 2.8rem;
+    color: var(--accent);
+    }
+
+    a.back-link {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1.5px solid var(--accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    a.back-link:hover {
+    background-color: var(--accent);
+    color: var(--bg);
+    }
+
+    #game-container {
+    width: 90vw;
+    max-width: 1280px;
+    aspect-ratio: 11 / 8;
+    background: var(--card-bg);
+    border: 3px solid var(--accent);
+    border-radius: 0.75rem;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+    overflow: hidden;
+    }
+
+    #game-container object,
+    #game-container embed {
+    width: 100%;
+    height: 100%;
+    display: block;
+    }
+
+    #fullscreen-message {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: var(--accent);
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+    user-select: none;
+    max-width: 90vw;
+    text-align: center;
+    }
+
+    footer {
+    margin-top: 3rem;
+    opacity: 0.4;
+    font-size: 0.9rem;
+    user-select: none;
+    }
+</style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CEN3W87631');
+</script>
+<body>
+  <h1>Bloons TD 5</h1>
+  <a href="../pages/games.html" class="back-link">← Back to Games</a>
+
+  <div id="game-container">
+    <object data="./bloonstd5.swf" type="application/x-shockwave-flash">
+      <embed src="./bloonstd5.swf" />
+    </object>
+  </div>
+
+  <div id="fullscreen-message">
+    Right-click the game and select <strong>“Fullscreen”</strong> for best experience.
+  </div>
+  <footer id="site-footer">
+    pxsl.dev - vX.X.X - made by pxsl
+  </footer>
+</body>
+</html>
