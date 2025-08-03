@@ -3,28 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pxsl.dev</title>
-  <link rel="stylesheet" href="global/style.css" />
-
-    <!-- Discord & Social Preview Meta Tags -->
-  <meta property="og:title" content="pxsl.dev" />
-  <meta property="og:description" content="a collection of stupid projects, weird tools, and pure energy." />
+  
+  <!-- Primary SEO -->
+  <title>pxsl.dev | a collection of stupid projects, weird tools, and pure energy</title>
+  <meta name="description" content="pxsl.dev is an independent software developer's playground filled with chaotic tools, stupid projects, weird utilities, and pure chaotic energy. Explore fun, utilities, and experimental web stuff." />
+  <meta name="keywords" content="pxsl, pxsl.dev, dev tools, chaotic tools, weird web projects, fun web tools, stupid projects, image playground, base64, discord bot, gaming, indie developer" />
+  <meta name="author" content="Pxsl" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://pxsl.dev/" />
+  
+  <!-- Open Graph / Facebook / Discord -->
+  <meta property="og:title" content="pxsl.dev | chaotic tools and stupid projects" />
+  <meta property="og:description" content="A collection of stupid projects, weird tools, and pure energy from independent dev Pxsl." />
   <meta property="og:url" content="https://pxsl.dev/" />
   <meta property="og:type" content="website" />
-
+  <meta property="og:site_name" content="pxsl.dev" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:image:alt" content="pxsl.dev logo and chaotic projects" />
+  
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="pxsl.dev" />
-  <meta name="twitter:description" content="a collection of stupid projects, weird tools, and pure energy." />
+  <meta name="twitter:site" content="@PxslGames" />
+  <meta name="twitter:creator" content="@Pxsl" />
+  <meta name="twitter:title" content="pxsl.dev | chaotic tools and stupid projects" />
+  <meta name="twitter:description" content="A collection of stupid projects, weird tools, and pure energy from independent dev Pxsl." />
+  <meta name="twitter:image:alt" content="pxsl.dev logo and chaotic projects" />
+  
+  <!-- Theme color for mobile -->
+  <meta name="theme-color" content="#1e1b2f" />
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  <!-- Structured Data: WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://pxsl.dev/",
+    "name": "pxsl.dev",
+    "author": {
+      "@type": "Person",
+      "name": "Pxsl"
+    },
+    "description": "A collection of stupid projects, weird tools, and pure energy from independent dev Pxsl."
+  }
+  </script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="global/style.css" />
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CEN3W87631');
+  </script>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CEN3W87631');
-</script>
 <body>
   <header>
     <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
@@ -40,7 +80,7 @@
     <h2>welcome to <span class="highlight">pxsl.dev</span></h2>
     <p>a collection of stupid projects, weird tools, and pure energy.</p>
 
-    <p>About Me <\> I'm an independent software dev, and I basically just make whatever I feel like. I hope you enjoy my platform: pxsl.dev!</p>
+    <p>About Me &lt;&gt; I'm an independent software dev, and I basically just make whatever I feel like. I hope you enjoy my platform: pxsl.dev!</p>
 
     <div class="links">
       <a href="/about/">🧃 about</a>
@@ -50,7 +90,7 @@
   </main>
 
   <footer>
-    built with ✨ by <a href="https://github.com/PxslGames">Pxsl</a>
+    built with ✨ by <a href="https://github.com/PxslGames" rel="nofollow noopener noreferrer" target="_blank">Pxsl</a>
   </footer>
   <script src="global/snow.js"></script>
 </body>
