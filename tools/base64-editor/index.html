@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | base64 editor</title>
+  <link rel="stylesheet" href="/global/style.css" />
+  <style>
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 20px 100px;
+      text-align: center;
+    }
+
+    main h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: #9b5de5;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 30px;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    label {
+      font-weight: 600;
+      text-align: left;
+      color: #aaa;
+      font-size: 1rem;
+    }
+
+    textarea, input[type="file"] {
+      width: 100%;
+      font-family: monospace;
+      font-size: 1rem;
+      padding: 12px 16px;
+      background: #111;
+      color: #eee;
+      border: 1px solid #444;
+      border-radius: 0.75rem;
+      resize: vertical;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    textarea:focus, input[type="file"]:focus {
+      border-color: #9b5de5;
+      outline: none;
+      box-shadow: 0 0 10px #9b5de5;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    button {
+      background: #9b5de5;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #b890ff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 10px #b890ff;
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    #copyOutput {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      background: #44475a;
+      border-radius: 0.5rem;
+    }
+
+    #copyOutput:hover {
+      background: #9b5de5;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid #222;
+      animation: fadeIn 1.6s ease forwards;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CEN3W87631');
+</script>
+<body>
+  <header>
+    <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
+    <nav>
+      <a href="https://pxsl.dev/">🏠 | home</a>
+      <a href="/about/">🧃 | about</a>
+      <a href="/tools/">🛠 | tools</a>
+      <a href="https://pxslgames.github.io/pxsl.old/">💀 | archived</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>base64 <span class="highlight">editor</span></h2>
+    <p>Quickly encode/decode text or files using Base64.</p>
+
+    <div class="container">
+      <label for="inputText">Input Text / Base64</label>
+      <textarea id="inputText" placeholder="Type or paste text here..."></textarea>
+
+      <div class="btn-group">
+        <button id="encodeBtn">Encode</button>
+        <button id="decodeBtn">Decode</button>
+      </div>
+
+      <label for="outputText">Output</label>
+      <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
+
+      <button id="copyOutput">Copy Output</button>
+    </div>
+  </main>
+
+  <footer>
+    built with ✨ by <a href="https://github.com/PxslGames">Pxsl</a>
+  </footer>
+
+  <script>
+    const inputText = document.getElementById('inputText');
+    const outputText = document.getElementById('outputText');
+    const fileInput = document.getElementById('fileInput');
+    const encodeBtn = document.getElementById('encodeBtn');
+    const decodeBtn = document.getElementById('decodeBtn');
+    const copyBtn = document.getElementById('copyOutput');
+
+    function utf8ToBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    function base64ToUtf8(str) {
+      return decodeURIComponent(escape(atob(str)));
+    }
+
+    encodeBtn.addEventListener('click', () => {
+      const text = inputText.value.trim();
+      if (!text) {
+        outputText.value = 'Please enter text to encode.';
+        return;
+      }
+      try {
+        outputText.value = utf8ToBase64(text);
+      } catch {
+        outputText.value = 'Error encoding.';
+      }
+    });
+
+    decodeBtn.addEventListener('click', () => {
+      const text = inputText.value.trim();
+      if (!text) {
+        outputText.value = 'Please enter Base64 text to decode.';
+        return;
+      }
+      try {
+        outputText.value = base64ToUtf8(text);
+      } catch {
+        outputText.value = 'Error decoding.';
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result.split(',')[1];
+        outputText.value = base64String;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    copyBtn.addEventListener('click', () => {
+      if (!outputText.value) return;
+      navigator.clipboard.writeText(outputText.value).then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => (copyBtn.textContent = 'Copy Output'), 1500);
+      });
+    });
+  </script>
+  <script src="/global/snow.js"></script>
+</body>
+</html>
