@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <!-- Primary SEO -->
   <title>pxsl.dev | a collection of stupid projects, weird tools, and pure energy</title>
   <meta name="description" content="pxsl.dev is an independent software developer's playground filled with chaotic tools, stupid projects, weird utilities, and pure chaotic energy. Explore fun, utilities, and experimental web stuff." />
@@ -11,10 +11,10 @@
   <meta name="author" content="Pxsl" />
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index, follow" />
-  
+
   <!-- Canonical URL -->
   <link rel="canonical" href="https://pxsl.dev/" />
-  
+
   <!-- Open Graph / Facebook / Discord -->
   <meta property="og:title" content="pxsl.dev | chaotic tools and stupid projects" />
   <meta property="og:description" content="A collection of stupid projects, weird tools, and pure energy from independent dev Pxsl." />
@@ -23,7 +23,7 @@
   <meta property="og:site_name" content="pxsl.dev" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:image:alt" content="pxsl.dev logo and chaotic projects" />
-  
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@PxslGames" />
@@ -31,13 +31,13 @@
   <meta name="twitter:title" content="pxsl.dev | chaotic tools and stupid projects" />
   <meta name="twitter:description" content="A collection of stupid projects, weird tools, and pure energy from independent dev Pxsl." />
   <meta name="twitter:image:alt" content="pxsl.dev logo and chaotic projects" />
-  
+
   <!-- Theme color for mobile -->
   <meta name="theme-color" content="#1e1b2f" />
-  
+
   <!-- Manifest -->
   <link rel="manifest" href="/site.webmanifest" />
-  
+
   <!-- Structured Data: WebSite -->
   <script type="application/ld+json">
   {
@@ -52,17 +52,103 @@
     "description": "A collection of stupid projects, weird tools, and pure energy from independent dev Pxsl."
   }
   </script>
-  
+
   <!-- Styles -->
   <link rel="stylesheet" href="global/style.css" />
-  
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+
+  <!-- Cookie Consent Styles -->
+  <style>
+    #cookie-consent-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1e1b2fdd;
+      color: #eee;
+      padding: 15px 20px;
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      backdrop-filter: blur(6px);
+    }
+    #cookie-consent-banner button {
+      background: #9b5de5;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    #cookie-consent-banner button:hover {
+      background: #b890ff;
+    }
+  </style>
+
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-CEN3W87631');
+    // Function to check consent and enable scripts
+    function handleConsent() {
+      if (localStorage.getItem('pxslCookieConsent') === 'true') {
+        // Consent given, load GA and enable site features
+        loadGoogleAnalytics();
+        enableSiteScripts();
+        removeConsentBanner();
+      } else {
+        // Consent NOT given yet — block GA and site scripts
+        disableSiteScripts();
+      }
+    }
+
+    // Load Google Analytics only after consent
+    function loadGoogleAnalytics() {
+      if (window.gaLoaded) return; // prevent multiple loads
+      window.gaLoaded = true;
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631';
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-CEN3W87631');
+    }
+
+    // Disable any scripts that use localStorage or tracking until consent
+    function disableSiteScripts() {
+      // You can put here anything that needs blocking before consent.
+      // For example, disable buttons or features that use localStorage.
+      // Or just wait for consent before attaching event listeners.
+    }
+
+    function enableSiteScripts() {
+      // Your normal site JS can go here if it was blocked before consent.
+      // Or you can just let the page work normally once consent is given.
+    }
+
+    // Remove the consent banner from DOM
+    function removeConsentBanner() {
+      const banner = document.getElementById('cookie-consent-banner');
+      if (banner) banner.remove();
+    }
+
+    // Call this when user accepts cookies
+    function acceptCookies() {
+      localStorage.setItem('pxslCookieConsent', 'true');
+      handleConsent();
+    }
+
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      handleConsent();
+    });
   </script>
 </head>
 <body>
@@ -94,6 +180,26 @@
   <footer>
     built with ✨ by <a href="https://github.com/PxslGames" rel="nofollow noopener noreferrer" target="_blank">Pxsl</a>
   </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" style="display:none;">
+    This website uses cookies and local storage to enhance your experience. By clicking "Accept", you consent to this.
+    <button id="acceptCookiesBtn">Accept</button>
+  </div>
+
+  <script>
+    // Show banner only if consent not given
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('pxslCookieConsent') !== 'true') {
+        document.getElementById('cookie-consent-banner').style.display = 'flex';
+      }
+
+      document.getElementById('acceptCookiesBtn').addEventListener('click', () => {
+        acceptCookies();
+      });
+    });
+  </script>
+
   <script src="global/snow.js"></script>
 </body>
 </html>
