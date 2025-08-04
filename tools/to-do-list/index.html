@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | to-do list</title>
+  <meta name="description" content="A minimal to-do list that saves to local storage. Built for productivity on pxsl.dev." />
+  <link rel="stylesheet" href="/global/style.css" />
+  <style>
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 20px 100px;
+      text-align: center;
+    }
+
+    main h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: #9b5de5;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 30px;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      font-family: monospace;
+      font-size: 1rem;
+      padding: 12px 16px;
+      background: #111;
+      color: #eee;
+      border: 1px solid #444;
+      border-radius: 0.75rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    li {
+      background: #1a1a1a;
+      padding: 12px 16px;
+      border: 1px solid #333;
+      border-radius: 0.5rem;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li.done {
+      text-decoration: line-through;
+      color: #666;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: #9b5de5;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #b890ff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 10px #b890ff;
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .delete-btn {
+      background: #444;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .delete-btn:hover {
+      background: #e63946;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid #222;
+      animation: fadeIn 1.6s ease forwards;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+  </style>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CEN3W87631');
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
+    <nav>
+      <a href="https://pxsl.dev/">🏠 | home</a>
+      <a href="/about/">🧃 | about</a>
+      <a href="/tools/">🛠 | tools</a>
+      <a href="/fun/">🎉 | fun</a>
+      <a href="https://pxslgames.github.io/pxsl.old/">💀 | archived</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>to-do <span class="highlight">list</span></h2>
+    <p>Simple task tracker. Auto-saves to local storage.</p>
+
+    <div class="container">
+      <input id="taskInput" type="text" placeholder="Add a new task..." />
+      <div class="btn-group">
+        <button id="addTaskBtn">Add Task</button>
+        <button id="clearTasksBtn">Clear All</button>
+      </div>
+      <ul id="taskList"></ul>
+    </div>
+  </main>
+
+  <footer>
+    built with ✨ by <a href="https://github.com/PxslGames">Pxsl</a>
+  </footer>
+
+  <script>
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const clearTasksBtn = document.getElementById('clearTasksBtn');
+    const taskList = document.getElementById('taskList');
+
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    function renderTasks() {
+      taskList.innerHTML = '';
+      tasks.forEach((task, i) => {
+        const li = document.createElement('li');
+        if (task.done) li.classList.add('done');
+
+        const text = document.createElement('span');
+        text.textContent = task.text;
+        text.style.cursor = 'pointer';
+        text.onclick = () => toggleTask(i);
+
+        const del = document.createElement('button');
+        del.textContent = '✕';
+        del.className = 'delete-btn';
+        del.onclick = () => deleteTask(i);
+
+        li.appendChild(text);
+        li.appendChild(del);
+        taskList.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const value = taskInput.value.trim();
+      if (!value) return;
+      tasks.push({ text: value, done: false });
+      taskInput.value = '';
+      saveTasks();
+    }
+
+    function toggleTask(index) {
+      tasks[index].done = !tasks[index].done;
+      saveTasks();
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      saveTasks();
+    }
+
+    function clearTasks() {
+      if (confirm('Clear all tasks?')) {
+        tasks = [];
+        saveTasks();
+      }
+    }
+
+    function saveTasks() {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      renderTasks();
+    }
+
+    addTaskBtn.onclick = addTask;
+    clearTasksBtn.onclick = clearTasks;
+    taskInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addTask();
+    });
+
+    renderTasks();
+  </script>
+
+  <script src="/global/snow.js"></script>
+</body>
+</html>
