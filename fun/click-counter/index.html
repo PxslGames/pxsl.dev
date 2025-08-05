@@ -158,11 +158,10 @@
       }
     });
 
-    // Add spacebar support
+    // Add single-spacebar-click support
     document.addEventListener('keydown', (e) => {
-      // Check if spacebar and not typing in an input field
-      if (e.code === 'Space' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-        e.preventDefault(); // Prevent page scrolling
+      if (e.code === 'Space' && !e.repeat && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault(); // Prevent scroll
         incrementCount();
       }
     });
