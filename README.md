@@ -9,6 +9,7 @@ A small corner of the internet where I share my **games**, **tools**, **projects
 ## 🚀 | Features
 - 🏠 | home
 - 🛠️ | tools
+- 🎉 | fun
 
 ## 🔐 | Privacy
 - I personally collect **no user data**
