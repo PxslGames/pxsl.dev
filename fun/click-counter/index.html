@@ -142,17 +142,28 @@
     let count = parseInt(localStorage.getItem('clickCount')) || 0;
     countDisplay.textContent = count;
 
-    clickBtn.addEventListener('click', () => {
+    function incrementCount() {
       count++;
       countDisplay.textContent = count;
       localStorage.setItem('clickCount', count);
-    });
+    }
+
+    clickBtn.addEventListener('click', incrementCount);
 
     resetBtn.addEventListener('click', () => {
       if (confirm('Reset your click count?')) {
         count = 0;
         countDisplay.textContent = count;
         localStorage.setItem('clickCount', count);
+      }
+    });
+
+    // Add spacebar support
+    document.addEventListener('keydown', (e) => {
+      // Check if spacebar and not typing in an input field
+      if (e.code === 'Space' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault(); // Prevent page scrolling
+        incrementCount();
       }
     });
   </script>
