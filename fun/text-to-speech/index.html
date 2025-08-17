@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>pxsl.dev | TTS Playground</title>
+<link rel="stylesheet" href="/global/style.css" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<style>
+  main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 20px 80px; /* more concise */
+    text-align: center;
+  }
+
+  main h2 {
+    font-size: 2.5rem; /* slightly smaller */
+    margin-bottom: 15px;
+  }
+
+  .highlight {
+    color: #9b5de5;
+    animation: glowText 3s ease-in-out infinite alternate;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 20px;
+    align-items: center;
+  }
+
+  textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 2px solid #9b5de5;
+    background: #1e1b2f;
+    color: #eee;
+    font-size: 0.95rem;
+    resize: none;
+  }
+
+  label {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #eee;
+    text-align: left;
+    width: 100%;
+  }
+
+  /* styled sliders & dropdown */
+  select, input[type="range"] {
+    width: 100%;
+    margin-top: 4px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    border: 2px solid #9b5de5;
+    background: #2a2542;
+    color: #eee;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #9b5de5;
+    cursor: pointer;
+    border: none;
+    margin-top: -5px;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #9b5de5;
+    cursor: pointer;
+    border: none;
+  }
+
+  button {
+    background: #9b5de5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    user-select: none;
+  }
+
+  button:hover {
+    background: #b890ff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px #b890ff;
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+
+  footer {
+    padding: 15px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    border-top: 1px solid #222;
+  }
+
+  footer a {
+    color: #888;
+    text-decoration: none;
+  }
+  footer a:hover {
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
+  <nav>
+    <a href="https://pxsl.dev/">🏠 | home</a>
+    <a href="/about/">🧃 | about</a>
+    <a href="/tools/">🛠 | tools</a>
+    <a href="/fun/">🎉 | fun</a>
+    <a href="/products/">💻 | products</a>
+    <a href="https://pxslgames.github.io/pxsl.old/">💀 | archived</a>
+  </nav>
+</header>
+
+<main>
+  <h2>text-to-<span class="highlight">speech</span></h2>
+  <p>Type anything and hear it aloud. Customize voice, pitch, and speed!</p>
+
+  <div class="container">
+    <textarea id="ttsText" rows="4" placeholder="Type your chaos here..."></textarea>
+    <label>Voice: <select id="voiceSelect"></select></label>
+    <label>Rate: <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1"></label>
+    <label>Pitch: <input type="range" id="pitch" min="0" max="2" step="0.1" value="1"></label>
+    <button id="speakBtn">Speak!</button>
+    <button id="stopBtn">Stop!</button>
+  </div>
+</main>
+
+<footer>
+  built with ✨ by <a href="https://github.com/PxslGames">Pxsl</a>
+</footer>
+
+<script>
+  const synth = window.speechSynthesis;
+  const textInput = document.getElementById('ttsText');
+  const voiceSelect = document.getElementById('voiceSelect');
+  const rateInput = document.getElementById('rate');
+  const pitchInput = document.getElementById('pitch');
+  const speakBtn = document.getElementById('speakBtn');
+  const stopBtn = document.getElementById('stopBtn');
+
+  function loadVoices() {
+    const voices = synth.getVoices();
+    voiceSelect.innerHTML = '';
+    voices.forEach((voice, i) => {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      voiceSelect.appendChild(option);
+    });
+  }
+
+  synth.onvoiceschanged = loadVoices;
+  loadVoices();
+
+  speakBtn.onclick = () => {
+    if (!textInput.value) return;
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(textInput.value);
+    const voices = synth.getVoices();
+    utter.voice = voices[voiceSelect.value] || null;
+    utter.rate = parseFloat(rateInput.value);
+    utter.pitch = parseFloat(pitchInput.value);
+    synth.speak(utter);
+  };
+
+  stopBtn.onclick = () => {
+    synth.cancel();
+  };
+
+  textInput.addEventListener('input', () => synth.cancel());
+</script>
+
+<script src="/global/snow.js"></script>
+</body>
+</html>
