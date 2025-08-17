@@ -15,6 +15,8 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://pxsl.dev/" />
 
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+
   <!-- Open Graph / Facebook / Discord -->
   <meta property="og:title" content="pxsl.dev | chaotic tools and stupid projects" />
   <meta property="og:description" content="A collection of stupid projects, weird tools, and pure energy from independent dev Pxsl." />
@@ -91,20 +93,16 @@
   </style>
 
   <script>
-    // Function to check consent and enable scripts
     function handleConsent() {
       if (localStorage.getItem('pxslCookieConsent') === 'true') {
-        // Consent given, load GA and enable site features
         loadGoogleAnalytics();
         enableSiteScripts();
         removeConsentBanner();
       } else {
-        // Consent NOT given yet — block GA and site scripts
         disableSiteScripts();
       }
     }
 
-    // Load Google Analytics only after consent
     function loadGoogleAnalytics() {
       if (window.gaLoaded) return; // prevent multiple loads
       window.gaLoaded = true;
@@ -168,7 +166,7 @@
     <h2>welcome to <span class="highlight">pxsl.dev</span></h2>
     <p>a collection of stupid projects, weird tools, and pure energy.</p>
 
-    <p>About Me &lt;&gt; I'm an independent software dev, and I basically just make whatever I feel like. I hope you enjoy my platform: pxsl.dev! (v1.4.7)</p>
+    <p>About Me &lt;&gt; I'm an independent software dev, and I basically just make whatever I feel like. I hope you enjoy my platform: pxsl.dev! (v1.5.7)</p>
 
     <div class="links">
       <a href="/about/">🧃 about</a>
