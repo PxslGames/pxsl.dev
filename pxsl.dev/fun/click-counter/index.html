@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | click game</title>
+  <link rel="stylesheet" href="/global/style.css" />
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <style>
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 20px 100px;
+      text-align: center;
+    }
+
+    main h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: #9b5de5;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 30px;
+      animation: fadeInUp 1s ease forwards;
+      align-items: center;
+    }
+
+    #countDisplay {
+      font-size: 6rem;
+      font-weight: 900;
+      user-select: none;
+      color: #eee;
+      margin: 0;
+      padding: 20px 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+      justify-content: center;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    button {
+      background: #9b5de5;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      flex: 1 1 140px;
+      user-select: none;
+    }
+
+    button:hover {
+      background: #b890ff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 10px #b890ff;
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid #222;
+      animation: fadeIn 1.6s ease forwards;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CEN3W87631');
+</script>
+<body>
+  <header>
+    <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
+    <nav>
+      <a href="https://pxsl.dev/">🏠 | home</a>
+      <a href="/about/">🧃 | about</a>
+      <a href="/tools/">🛠 | tools</a>
+      <a href="/fun/">🎉 | fun</a>
+      <a href="/products/">💻 | products</a>
+      <a href="https://pxslgames.github.io/pxsl.old/">💀 | archived</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>click <span class="highlight">game</span></h2>
+    <p>Click the button and see how high your count goes. Your progress is saved locally.</p>
+
+    <div class="container">
+      <div id="countDisplay">0</div>
+
+      <div class="btn-group">
+        <button id="clickBtn">Click Me!</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    built with ✨ by <a href="https://github.com/PxslGames">Pxsl</a>
+  </footer>
+
+  <script>
+    const countDisplay = document.getElementById('countDisplay');
+    const clickBtn = document.getElementById('clickBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let count = parseInt(localStorage.getItem('clickCount')) || 0;
+    countDisplay.textContent = count;
+
+    function incrementCount() {
+      count++;
+      countDisplay.textContent = count;
+      localStorage.setItem('clickCount', count);
+    }
+
+    clickBtn.addEventListener('click', incrementCount);
+
+    resetBtn.addEventListener('click', () => {
+      if (confirm('Reset your click count?')) {
+        count = 0;
+        countDisplay.textContent = count;
+        localStorage.setItem('clickCount', count);
+      }
+    });
+
+    // Add single-spacebar-click support
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !e.repeat && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault(); // Prevent scroll
+        incrementCount();
+      }
+    });
+  </script>
+  <script src="/global/snow.js"></script>
+  <script src="/global/cursor.js"></script>
+</body>
+</html>

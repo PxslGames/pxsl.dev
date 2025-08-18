@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | live markdown</title>
+  <link rel="stylesheet" href="/global/style.css" />
+
+  <!-- Marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+
+  <style>
+    /* Root colors & animations assumed from your global style.css */
+    body {
+      font-family: monospace;
+      background: #0b0b0b;
+      color: #ddd;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 1.2s ease forwards;
+      user-select: none;
+    }
+
+    header {
+      padding: 20px;
+      background: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #222;
+      animation: slideDown 0.8s ease forwards;
+    }
+    header h1 a {
+      color: #9b5de5;
+      text-decoration: none;
+      cursor: pointer;
+      user-select: none;
+      animation: float 3s ease-in-out infinite, glowText 3s ease-in-out infinite alternate;
+      transition: color 0.3s ease;
+    }
+    header h1 a:hover {
+      color: #b890ff;
+    }
+    nav a {
+      margin-left: 20px;
+      color: #999;
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+      animation: fadeIn 1s ease forwards;
+    }
+    nav a:hover {
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 60px auto 80px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    main h1 {
+      font-size: 3rem;
+      color: #9b5de5;
+      margin-bottom: 8px;
+      user-select: text;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    a.back-link {
+      margin-bottom: 40px;
+      font-size: 1rem;
+      color: #9b5de5;
+      text-decoration: none;
+      border: 2px solid #9b5de5;
+      padding: 8px 20px;
+      border-radius: 999px;
+      align-self: flex-start;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      user-select: text;
+    }
+    a.back-link:hover {
+      background-color: #9b5de5;
+      color: #111;
+      transform: translateY(-3px);
+    }
+
+    .markdown-container {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      height: 400px;
+      user-select: text;
+    }
+
+    textarea {
+      flex: 1;
+      background: #111;
+      border: 2px solid #9b5de5;
+      border-radius: 12px;
+      color: #ddd;
+      font-family: monospace;
+      font-size: 1.1rem;
+      padding: 1rem;
+      resize: vertical;
+      outline: none;
+      box-shadow: 0 0 8px #3a1f85aa;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    textarea:focus {
+      border-color: #b890ff;
+      box-shadow: 0 0 16px #b890ff;
+    }
+
+    .preview {
+      flex: 1;
+      background: #111;
+      border: 2px solid #9b5de5;
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-y: auto;
+      color: #ddd;
+      box-shadow: 0 0 8px #3a1f85aa;
+    }
+
+    /* Markdown content styles inside preview */
+    .preview h1,
+    .preview h2,
+    .preview h3 {
+      color: #9b5de5;
+      margin-top: 0;
+      user-select: text;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    .preview p {
+      line-height: 1.6;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #ccc;
+      user-select: text;
+    }
+
+    .preview pre {
+      background: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-family: monospace;
+      box-shadow: 0 0 8px #9b5de5aa;
+      margin-bottom: 1rem;
+      user-select: text;
+    }
+
+    .preview code {
+      background: #333;
+      color: #d3d3d3;
+      padding: 0.2rem 0.4rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      user-select: text;
+    }
+
+    .preview blockquote {
+      border-left: 4px solid #9b5de5;
+      padding-left: 1rem;
+      color: #aaa;
+      font-style: italic;
+      margin: 1rem 0;
+      user-select: text;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid #222;
+      animation: fadeIn 1.6s ease forwards;
+      user-select: none;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+
+    /* Animations from your global style */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes glowText {
+      0% {
+        text-shadow: 0 0 10px #9b5de5, 0 0 20px #9b5de5;
+      }
+      100% {
+        text-shadow: 0 0 20px #b890ff, 0 0 40px #b890ff;
+      }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .markdown-container {
+        flex-direction: column;
+        height: auto;
+      }
+      textarea, .preview {
+        height: 300px;
+        width: 100%;
+      }
+      a.back-link {
+        align-self: center;
+      }
+    }
+  </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEN3W87631"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CEN3W87631');
+</script>
+<body>
+
+  <header>
+    <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
+    <nav>
+      <a href="https://pxsl.dev/">🏠 | home</a>
+      <a href="/about/">🧃 | about</a>
+      <a href="/tools/">🛠 | tools</a>
+      <a href="/fun/">🎉 | fun</a>
+      <a href="/products/">💻 | products</a>
+      <a href="https://pxslgames.github.io/pxsl.old/">💀 | archived</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Live Markdown</h1>
+
+    <div class="markdown-container">
+      <textarea id="md-input" spellcheck="false" placeholder="Type your markdown here..."># Welcome to Live Markdown!
+
+Type **Markdown** on the left, and see the *live preview* on the right.
+
+- Easy to use  
+- Fast  
+- Works offline  
+</textarea>
+      <div id="md-preview" class="preview"></div>
+    </div>
+  </main>
+
+  <footer>
+    built with ✨ by <a href="https://github.com/PxslGames">Pxsl</a>
+  </footer>
+
+  <script>
+    const input = document.getElementById('md-input');
+    const preview = document.getElementById('md-preview');
+
+    function updatePreview() {
+      const markdownText = input.value;
+      preview.innerHTML = marked.parse(markdownText, { 
+        gfm: true, 
+        breaks: true,
+        sanitize: false
+      });
+    }
+
+    input.addEventListener('input', updatePreview);
+
+    // Initialize preview on load
+    updatePreview();
+  </script>
+
+  <script src="/global/snow.js"></script>
+</body>
+</html>
