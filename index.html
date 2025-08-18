@@ -104,7 +104,7 @@
     }
 
     function loadGoogleAnalytics() {
-      if (window.gaLoaded) return; // prevent multiple loads
+      if (window.gaLoaded) return;
       window.gaLoaded = true;
 
       const script = document.createElement('script');
@@ -119,37 +119,24 @@
       gtag('config', 'G-CEN3W87631');
     }
 
-    // Disable any scripts that use localStorage or tracking until consent
-    function disableSiteScripts() {
-      // You can put here anything that needs blocking before consent.
-      // For example, disable buttons or features that use localStorage.
-      // Or just wait for consent before attaching event listeners.
-    }
-
-    function enableSiteScripts() {
-      // Your normal site JS can go here if it was blocked before consent.
-      // Or you can just let the page work normally once consent is given.
-    }
-
-    // Remove the consent banner from DOM
     function removeConsentBanner() {
       const banner = document.getElementById('cookie-consent-banner');
       if (banner) banner.remove();
     }
 
-    // Call this when user accepts cookies
     function acceptCookies() {
       localStorage.setItem('pxslCookieConsent', 'true');
       handleConsent();
     }
 
-    // Run on page load
     document.addEventListener('DOMContentLoaded', () => {
       handleConsent();
     });
   </script>
 </head>
 <body>
+  <div class="cursor-circle" id="cursor"></div>
+
   <header>
     <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
     <nav>
@@ -166,7 +153,7 @@
     <h2>welcome to <span class="highlight">pxsl.dev</span></h2>
     <p>a collection of stupid projects, weird tools, and pure energy.</p>
 
-    <p>About Me &lt;&gt; I'm an independent software dev, and I basically just make whatever I feel like. I hope you enjoy my platform: pxsl.dev! (v1.5.8)</p>
+    <p>About Me &lt;&gt; I'm an independent software dev, and I basically just make whatever I feel like. I hope you enjoy my platform: pxsl.dev! (v1.5.9)</p>
 
     <div class="links">
       <a href="/about/">🧃 about</a>
@@ -199,5 +186,6 @@
   </script>
 
   <script src="/global/snow.js"></script>
+  <script src="/global/cursor.js"></script>
 </body>
 </html>

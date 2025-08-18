@@ -28,6 +28,7 @@ main h2 {
     max-width: 400px;
     margin: 0 auto 50px auto;
     animation: fadeInUp 1.2s ease forwards;
+    cursor: none !important;
 }
 
 .langs h3 {
@@ -36,6 +37,7 @@ main h2 {
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
+    cursor: none !important;
 }
 
 .langs ul {
@@ -45,6 +47,7 @@ main h2 {
     justify-content: center;
     gap: 15px;
     padding: 0;
+    cursor: none !important;
 }
 
 .langs ul li {
@@ -56,12 +59,14 @@ main h2 {
     cursor: default;
     user-select: none;
     transition: background 0.3s ease;
+    cursor: none !important;
 }
 
 .langs ul li:hover {
     background: #9b5de5;
     color: #fff;
     box-shadow: 0 0 8px #9b5de5;
+    cursor: none !important;
 }
 
 .links {

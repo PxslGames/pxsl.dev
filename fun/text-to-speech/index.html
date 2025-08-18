@@ -140,65 +140,60 @@
   </nav>
 </header>
 
-<main>
-  <h2>text-to-<span class="highlight">speech</span></h2>
-  <p>Type anything and hear it aloud. Customize voice, pitch, and speed!</p>
+  <main>
+    <h2>ASCII <span class="highlight">Playground</span></h2>
+    <p>Type something, pick a font, and see your text turned into ASCII art!</p>
 
-  <div class="container">
-    <textarea id="ttsText" rows="4" placeholder="Type your chaos here..."></textarea>
-    <label>Voice: <select id="voiceSelect"></select></label>
-    <label>Rate: <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1"></label>
-    <label>Pitch: <input type="range" id="pitch" min="0" max="2" step="0.1" value="1"></label>
-    <button id="speakBtn">Speak!</button>
-    <button id="stopBtn">Stop!</button>
-  </div>
-</main>
+    <div class="container">
+      <textarea id="asciiText" rows="3" placeholder="Type your chaos here..."></textarea>
+      <select id="fontSelect"></select>
+      <button id="generateBtn">Generate ASCII!</button>
+      <pre id="asciiOutput"></pre>
+    </div>
+  </main>
 
-<footer>
-  built with ✨ by <a href="https://github.com/PxslGames">Pxsl</a>
-</footer>
+  <footer>
+    built with ✨ by <a href="https://github.com/PxslGames">Pxsl</a>
+  </footer>
 
-<script>
-  const synth = window.speechSynthesis;
-  const textInput = document.getElementById('ttsText');
-  const voiceSelect = document.getElementById('voiceSelect');
-  const rateInput = document.getElementById('rate');
-  const pitchInput = document.getElementById('pitch');
-  const speakBtn = document.getElementById('speakBtn');
-  const stopBtn = document.getElementById('stopBtn');
+  <script src="https://cdn.jsdelivr.net/npm/figlet@1.5.2/figlet.min.js"></script>
+  <script>
+    const textInput = document.getElementById('asciiText');
+    const fontSelect = document.getElementById('fontSelect');
+    const generateBtn = document.getElementById('generateBtn');
+    const output = document.getElementById('asciiOutput');
 
-  function loadVoices() {
-    const voices = synth.getVoices();
-    voiceSelect.innerHTML = '';
-    voices.forEach((voice, i) => {
-      const option = document.createElement('option');
-      option.value = i;
-      option.textContent = `${voice.name} (${voice.lang})`;
-      voiceSelect.appendChild(option);
+    const fonts = [
+      "Standard","Slant","Shadow","Big","Small","Block","Banner","Doom","Ivrit",
+      "Lean","Mini","Script","Univers","Alligator","Alpha","Avatar","Bell","Catwalk",
+      "Chunky","Contessa","Cyberlarge","DefLeppard","Diamond","Doh","Epic","Isometric1",
+      "Isometric2","Isometric3","Isometric4","Ogre","Pawp","Rectangles","Rounded",
+      "Roman","Starwars","Subzero","Tanja","Term","Train","Univers"
+    ];
+
+    fonts.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f;
+      opt.textContent = f;
+      fontSelect.appendChild(opt);
     });
-  }
 
-  synth.onvoiceschanged = loadVoices;
-  loadVoices();
+    function generateASCII() {
+      const text = textInput.value.trim();
+      if (!text) return output.textContent = '';
+      const font = fontSelect.value;
+      figlet.text(text, { font }, (err, data) => {
+        if (err) return output.textContent = 'Something went wrong...';
+        output.textContent = data;
+      });
+    }
 
-  speakBtn.onclick = () => {
-    if (!textInput.value) return;
-    synth.cancel();
-    const utter = new SpeechSynthesisUtterance(textInput.value);
-    const voices = synth.getVoices();
-    utter.voice = voices[voiceSelect.value] || null;
-    utter.rate = parseFloat(rateInput.value);
-    utter.pitch = parseFloat(pitchInput.value);
-    synth.speak(utter);
-  };
+    generateBtn.onclick = generateASCII;
+    textInput.addEventListener('input', generateASCII);
+    fontSelect.addEventListener('change', generateASCII);
+  </script>
 
-  stopBtn.onclick = () => {
-    synth.cancel();
-  };
-
-  textInput.addEventListener('input', () => synth.cancel());
-</script>
-
-<script src="/global/snow.js"></script>
+  <script src="/global/snow.js"></script>
+  <script src="/global/cursor.js"></script>
 </body>
 </html>
