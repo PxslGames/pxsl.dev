@@ -64,7 +64,6 @@ const fileList = document.getElementById("file-list");
 // Recursive fetch function
 async function fetchContents(path = "storage", container) {
   try {
-    // GitHub API fetch
     const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
     if (!response.ok) throw new Error(`Failed to fetch files at path: ${path}`);
     const items = await response.json();
@@ -73,7 +72,6 @@ async function fetchContents(path = "storage", container) {
       const el = document.createElement("div");
       el.classList.add("item");
 
-      // Full path relative to repo
       const fullPath = item.path;
       el.dataset.path = fullPath;
 
@@ -83,12 +81,7 @@ async function fetchContents(path = "storage", container) {
         folderName.textContent = item.name;
         el.appendChild(folderName);
 
-        const copyBtn = document.createElement("button");
-        copyBtn.textContent = "🔗";
-        copyBtn.className = "copy-btn";
-        copyBtn.title = "Copy folder path";
-        copyBtn.addEventListener("click", e => { e.stopPropagation(); copyToClipboard(fullPath); });
-        el.appendChild(copyBtn);
+        // Remove copy button for folders
 
         const subContainer = document.createElement("div");
         subContainer.classList.add("subfolder");
@@ -110,7 +103,7 @@ async function fetchContents(path = "storage", container) {
       } else if(item.type === "file") {
         el.classList.add("file");
         const link = document.createElement("a");
-        link.href = item.download_url; // direct GitHubusercontent link
+        link.href = item.download_url;
         link.textContent = item.name;
         link.target = "_blank";
         link.className = "download-link";
