@@ -27,45 +27,18 @@
   transition: background 0.2s ease;
 }
 
-.item:hover {
-  background: #1a1a1a;
-}
+.item:hover { background: #1a1a1a; }
 
-.folder {
-  font-weight: bold;
-  cursor: pointer;
-  color: #9b5de5;
-}
+.folder { font-weight: bold; cursor: pointer; color: #9b5de5; }
+.folder::before { content: "📁 "; margin-right: 8px; }
 
-.folder::before {
-  content: "📁 ";
-  margin-right: 8px;
-}
+.file { color: #fff; }
+.file::before { content: "📄 "; margin-right: 8px; }
 
-.file {
-  color: #fff;
-}
+.download-link { margin-left: auto; color: #b890ff; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; }
+.download-link:hover { color: #9b5de5; }
 
-.file::before {
-  content: "📄 ";
-  margin-right: 8px;
-}
-
-.download-link {
-  margin-left: auto;
-  color: #b890ff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
-}
-
-.download-link:hover {
-  color: #9b5de5;
-}
-
-.subfolder {
-  margin-left: 20px;
-}
+.subfolder { margin-left: 20px; }
 
 button.copy-btn {
   margin-left: auto;
@@ -76,9 +49,13 @@ button.copy-btn {
   font-size: 1rem;
   transition: color 0.3s ease;
 }
+button.copy-btn:hover { color: #9b5de5; }
 
-button.copy-btn:hover {
-  color: #9b5de5;
+.drive-404 {
+  color: #ff5555;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 40px 0;
 }
 </style>
 </head>
@@ -116,31 +93,30 @@ document.addEventListener('mousemove', e => {
 });
 
 // Convert path <-> slug
-function generateSlug(path) {
-  return btoa(path).replace(/=/g, '');
-}
-
-function decodeSlug(slug) {
-  try { return atob(slug); } catch { return null; }
-}
+function generateSlug(path) { return btoa(path).replace(/=/g,''); }
+function decodeSlug(slug) { try { return atob(slug); } catch { return null; } }
 
 // Copy text to clipboard
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    alert(`Copied link: ${text}`);
-  });
-}
+function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => alert(`Copied link: ${text}`)); }
 
 const owner = "PxslGames";
 const repo = "pxsl.dev";
 const fileList = document.getElementById("file-list");
 
-// Recursively fetch and display files/folders
+// Recursively fetch files/folders
 async function fetchContents(path = "storage", container, highlightPath = null) {
   try {
     const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
-    if (!response.ok) throw new Error("Failed to fetch files");
+    if (!response.ok) {
+      if(path === highlightPath) { // slug not found → Drive 404
+        container.innerHTML = `<div class="drive-404">Drive 404: "${highlightPath}" not found.</div>`;
+        return;
+      }
+      throw new Error("Failed to fetch files");
+    }
+
     const items = await response.json();
+    let foundHighlight = false;
 
     items.forEach(item => {
       const el = document.createElement("div");
@@ -177,7 +153,6 @@ async function fetchContents(path = "storage", container, highlightPath = null) 
           } else { subContainer.style.display = "none"; }
         });
 
-        // Auto-expand if highlighted
         if(highlightPath && highlightPath.startsWith(item.path)) {
           subContainer.style.display = "block";
           if(!loaded) { fetchContents(item.path, subContainer, highlightPath); loaded = true; }
@@ -201,25 +176,29 @@ async function fetchContents(path = "storage", container, highlightPath = null) 
 
         container.appendChild(el);
 
-        // Highlight file if URL matches
         if(highlightPath === item.path) {
           el.style.background = "#333";
           el.scrollIntoView({behavior: "smooth", block: "center"});
+          foundHighlight = true;
         }
       }
     });
+
+    // If highlight path not found in current container, show Drive 404
+    if(highlightPath && !foundHighlight && path === "storage" && container.children.length === 0) {
+      container.innerHTML = `<div class="drive-404">Drive 404: "${highlightPath}" not found.</div>`;
+    }
 
   } catch(err) {
     container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
   }
 }
 
-// Check URL slug
+// Handle URL slug
 let slug = location.pathname.split("/").pop();
 let highlightPath = decodeSlug(slug);
 fileList.innerHTML = "";
 fetchContents("storage", fileList, highlightPath);
-
 </script>
 
 <script src="/global/snow.js"></script>
