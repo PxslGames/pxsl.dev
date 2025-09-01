@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
 <title>pxsl.dev | drive — access tons of useful and funny files, uploaded by pxsl.</title>
 <link rel="stylesheet" href="/global/style.css" />
 
 <style>
+body, * {
+  cursor: none !important;
+}
 #file-list {
   max-width: 900px;
   margin: 0 auto;
@@ -18,7 +20,6 @@
   text-align: left;
   animation: fadeIn 1s ease forwards;
 }
-
 .item {
   display: flex;
   align-items: center;
@@ -26,20 +27,24 @@
   border-radius: 4px;
   transition: background 0.2s ease;
 }
-
 .item:hover { background: #1a1a1a; }
-
-.folder { font-weight: bold; cursor: pointer; color: #9b5de5; }
+.folder {
+  font-weight: bold;
+  cursor: pointer;
+  color: #9b5de5;
+}
 .folder::before { content: "📁 "; margin-right: 8px; }
-
 .file { color: #fff; }
 .file::before { content: "📄 "; margin-right: 8px; }
-
-.download-link { margin-left: auto; color: #b890ff; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; }
+.download-link {
+  margin-left: auto;
+  color: #b890ff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
 .download-link:hover { color: #9b5de5; }
-
 .subfolder { margin-left: 20px; }
-
 button.copy-btn {
   margin-left: auto;
   background: none;
@@ -50,13 +55,6 @@ button.copy-btn {
   transition: color 0.3s ease;
 }
 button.copy-btn:hover { color: #9b5de5; }
-
-.drive-404 {
-  color: #ff5555;
-  text-align: center;
-  font-size: 1.2rem;
-  padding: 40px 0;
-}
 </style>
 </head>
 <body>
@@ -79,85 +77,59 @@ button.copy-btn:hover { color: #9b5de5; }
 </main>
 
 <footer>
-  built with ✨ by <a href="https://github.com/PxslGames" rel="nofollow noopener noreferrer" target="_blank">Pxsl</a>
+  built with ✨ by <a href="https://github.com/PxslGames" target="_blank" rel="nofollow noopener noreferrer">Pxsl</a>
 </footer>
 
 <div class="cursor-circle" id="cursor"></div>
 
 <script>
-// Custom cursor
 const cursor = document.getElementById('cursor');
 document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
 });
-
-// Convert path <-> slug
 function generateSlug(path) { return btoa(path).replace(/=/g,''); }
 function decodeSlug(slug) { try { return atob(slug); } catch { return null; } }
-
-// Copy text to clipboard
 function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => alert(`Copied link: ${text}`)); }
-
 const owner = "PxslGames";
 const repo = "pxsl.dev";
 const fileList = document.getElementById("file-list");
-
-// Recursively fetch files/folders
 async function fetchContents(path = "storage", container, highlightPath = null) {
   try {
     const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
-    if (!response.ok) {
-      if(path === highlightPath) { // slug not found → Drive 404
-        container.innerHTML = `<div class="drive-404">Drive 404: "${highlightPath}" not found.</div>`;
-        return;
-      }
-      throw new Error("Failed to fetch files");
-    }
-
+    if (!response.ok) throw new Error("Failed to fetch files");
     const items = await response.json();
-    let foundHighlight = false;
-
     items.forEach(item => {
       const el = document.createElement("div");
       el.classList.add("item");
-
+      el.dataset.path = item.path;
       const slug = generateSlug(item.path);
-      const shareURL = `https://pxsl.dev/drive/${slug}`;
-
+      const shareURL = `https://pxsl.dev/drive/#${slug}`;
       if(item.type === "dir") {
         el.classList.add("folder");
         const folderName = document.createElement("span");
         folderName.textContent = item.name;
         el.appendChild(folderName);
-
         const copyBtn = document.createElement("button");
         copyBtn.textContent = "🔗";
         copyBtn.className = "copy-btn";
         copyBtn.title = "Copy folder link";
         copyBtn.addEventListener("click", e => { e.stopPropagation(); copyToClipboard(shareURL); });
         el.appendChild(copyBtn);
-
         const subContainer = document.createElement("div");
         subContainer.classList.add("subfolder");
         subContainer.style.display = "none";
-
         container.appendChild(el);
         container.appendChild(subContainer);
-
         let loaded = false;
-        el.addEventListener("click", () => {
+        const toggleFolder = () => {
           if(subContainer.style.display === "none") {
             subContainer.style.display = "block";
-            if(!loaded) { fetchContents(item.path, subContainer); loaded = true; }
+            if(!loaded) { fetchContents(item.path, subContainer, highlightPath); loaded = true; }
           } else { subContainer.style.display = "none"; }
-        });
-
-        if(highlightPath && highlightPath.startsWith(item.path)) {
-          subContainer.style.display = "block";
-          if(!loaded) { fetchContents(item.path, subContainer, highlightPath); loaded = true; }
-        }
-
+        };
+        el.addEventListener("click", toggleFolder);
+        if(highlightPath && highlightPath.startsWith(item.path)) toggleFolder();
       } else if(item.type === "file") {
         el.classList.add("file");
         const link = document.createElement("a");
@@ -166,36 +138,27 @@ async function fetchContents(path = "storage", container, highlightPath = null) 
         link.target = "_blank";
         link.className = "download-link";
         el.appendChild(link);
-
         const copyBtn = document.createElement("button");
         copyBtn.textContent = "🔗";
         copyBtn.className = "copy-btn";
         copyBtn.title = "Copy file link";
         copyBtn.addEventListener("click", () => copyToClipboard(shareURL));
         el.appendChild(copyBtn);
-
         container.appendChild(el);
-
         if(highlightPath === item.path) {
           el.style.background = "#333";
           el.scrollIntoView({behavior: "smooth", block: "center"});
-          foundHighlight = true;
         }
       }
     });
-
-    // If highlight path not found in current container, show Drive 404
-    if(highlightPath && !foundHighlight && path === "storage" && container.children.length === 0) {
-      container.innerHTML = `<div class="drive-404">Drive 404: "${highlightPath}" not found.</div>`;
+    if(highlightPath && container === fileList && !document.querySelector(`.item[data-path="${highlightPath}"]`)) {
+      container.innerHTML = `<p style="color:#ff5555;">File or folder not found!</p>`;
     }
-
   } catch(err) {
     container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
   }
 }
-
-// Handle URL slug
-let slug = location.pathname.split("/").pop();
+let slug = location.hash.slice(1);
 let highlightPath = decodeSlug(slug);
 fileList.innerHTML = "";
 fetchContents("storage", fileList, highlightPath);
