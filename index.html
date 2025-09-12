@@ -154,7 +154,7 @@
     <h2>welcome to <span class="highlight">pxsl.dev</span></h2>
     <p>a collection of stupid projects, weird tools, and pure energy.</p>
 
-    <p>About Me &lt;&gt; I'm an independent software dev, and I basically just make whatever I feel like. I hope you enjoy my platform: pxsl.dev! (v1.5.9)</p>
+    <p id="about-me">About Me &lt;&gt; I'm an independent software dev, and I basically just make whatever I feel like. I hope you enjoy my platform: pxsl.dev! (v1.0.0)</p>
 
     <div class="links">
       <a href="/about/">🧃 about</a>
@@ -185,6 +185,56 @@
         acceptCookies();
       });
     });
+  </script>
+
+  <script>
+  async function getAllDeployments(repo) {
+      let deployments = [];
+      let url = `https://api.github.com/repos/${repo}/deployments?per_page=100&page=1`;
+
+      while (url) {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error("GitHub API error");
+
+          const data = await response.json();
+          deployments = deployments.concat(data);
+
+          const link = response.headers.get('Link');
+          if (link && link.includes('rel="next"')) {
+              const match = link.match(/<([^>]+)>;\s*rel="next"/);
+              url = match ? match[1] : null;
+          } else {
+              url = null;
+          }
+      }
+
+      return deployments.length;
+  }
+
+  async function updateVersion() {
+      const p = document.getElementById("about-me");
+
+      try {
+          let deploymentCount = await getAllDeployments("PxslGames/pxsl.dev");
+
+          const patchesPerMinor = 10;
+          const minorsPerMajor = 10;
+
+          deploymentCount = deploymentCount - 1;
+
+          const major = 1 + Math.floor(deploymentCount / (patchesPerMinor * minorsPerMajor));
+          const minor = Math.floor((deploymentCount % (patchesPerMinor * minorsPerMajor)) / patchesPerMinor);
+          const patch = deploymentCount % patchesPerMinor;
+
+          const version = `v${major}.${minor}.${patch}`;
+          p.innerHTML = p.innerHTML.replace(/\(v\d+\.\d+\.\d+\)/, `(${version})`);
+
+      } catch (err) {
+          console.error("Error fetching deployments:", err);
+      }
+  }
+
+  updateVersion();
   </script>
 
   <script src="/global/snow.js"></script>
