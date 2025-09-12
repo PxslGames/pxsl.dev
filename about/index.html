@@ -69,6 +69,12 @@
     gtag('config', 'G-CEN3W87631');
   </script>
 </head>
+
+<div id="enterOverlay">
+  <div>click anywhere to enter</div>
+  <small style="margin-top: 10px; font-size: 1rem; color: #aaa;">pxsl.dev vibes</small>
+</div>
+
 <body>
   <header>
     <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
@@ -113,11 +119,97 @@
       <a href="https://pxsl.itch.io/">💻 itch.io</a>
       <a href="https://pxslgames.github.io/pxsl.dev2/">💀 Archived Site</a>
     </div>
+    
+    <div id="audioPlayerContainer" style="display:none;">
+      <div id="songName"></div>
+      <button id="prevBtn">⏮️</button>
+      <button id="playPauseBtn">▶️</button>
+      <button id="nextBtn">⏭️</button>
+      <input type="range" id="volumeControl" min="0" max="1" step="0.01">
+    </div>
   </main>
 
   <footer>
     built with ✨ by <a href="https://github.com/PxslGames" rel="nofollow noopener noreferrer" target="_blank">Pxsl</a>
   </footer>
+
+  <script>
+    const songs = [
+      "music/dieyoungskepsisremix.mp3",
+      "music/help_urselfpheedit.mp3",
+    ];
+
+    const songnames = [
+      "die young (Skepsis Remix)",
+      "help_urself (PHE Edit)"
+    ];
+
+    const overlay = document.getElementById("enterOverlay");
+    const playerContainer = document.getElementById("audioPlayerContainer");
+    const songNameEl = document.getElementById("songName");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const volumeControl = document.getElementById("volumeControl");
+
+    let audio;
+    let currentIndex = 0;
+
+    function loadSong(index) {
+      if (!audio) {
+        audio = document.createElement("audio");
+        audio.autoplay = true;
+        audio.loop = false;
+        document.body.appendChild(audio);
+
+        audio.addEventListener("ended", () => {
+          nextSong();
+        });
+      }
+
+      currentIndex = index;
+      audio.src = songs[currentIndex];
+      audio.play();
+      songNameEl.textContent = songnames[currentIndex];
+      playPauseBtn.textContent = "⏸️";
+      volumeControl.value = audio.volume;
+    }
+
+    function playPause() {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = "⏸️";
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = "▶️";
+      }
+    }
+
+    function nextSong() {
+      let nextIndex = (currentIndex + 1) % songs.length;
+      loadSong(nextIndex);
+    }
+
+    function prevSong() {
+      let prevIndex = (currentIndex - 1 + songs.length) % songs.length;
+      loadSong(prevIndex);
+    }
+
+    overlay.addEventListener("click", () => {
+      overlay.style.display = "none";
+      playerContainer.style.display = "flex";
+
+      const randomIndex = Math.floor(Math.random() * songs.length);
+      loadSong(randomIndex);
+    });
+
+    playPauseBtn.addEventListener("click", playPause);
+    nextBtn.addEventListener("click", nextSong);
+    prevBtn.addEventListener("click", prevSong);
+    volumeControl.addEventListener("input", (e) => {
+      audio.volume = e.target.value;
+    });
+  </script>
 
   <script src="/global/snow.js"></script>
   <script src="/global/cursor.js"></script>
