@@ -115,7 +115,7 @@ header h1 a {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000000; /* match your theme */
+    background-color: #000000;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -132,16 +132,15 @@ header h1 a {
     opacity: 0.9;
 }
 
-/* Audio player container */
 #audioPlayerContainer {
     position: fixed;
-    bottom: 40px;                /* lifted slightly above page content */
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     background: #111;
     color: #fff;
     padding: 12px 20px;
-    border-radius: 999px;        /* fully rounded pill shape */
+    border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,7 +152,6 @@ header h1 a {
     max-width: 90%;
 }
 
-/* Song name styling */
 #audioPlayerContainer #songName {
     font-weight: 700;
     color: #9b5de5;
@@ -164,14 +162,12 @@ header h1 a {
     text-align: center;
 }
 
-/* Controls container */
 #audioPlayerContainer #controls {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-/* Buttons */
 #audioPlayerContainer button {
     background: #222;
     border: none;
@@ -189,7 +185,6 @@ header h1 a {
     transform: scale(1.1);
 }
 
-/* Volume slider */
 #audioPlayerContainer input[type="range"] {
     appearance: none;
     -webkit-appearance: none;
