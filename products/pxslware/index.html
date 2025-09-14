@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>pxsl.dev | Pxslware — 160+ Gorilla Tag mods, free & undetected</title>
   <meta name="description" content="Download Pxslware — a fully undetected, free Gorilla Tag mod menu with 160+ mods and a working anti-ban system." />
@@ -23,6 +23,9 @@
   <link rel="stylesheet" href="/global/style.css" />
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
   <style>
+    body, html, * {
+  cursor: none !important;
+}
     main {
       max-width: 900px;
       margin: 0 auto;
@@ -114,6 +117,89 @@
       margin-top: 20px;
       box-shadow: 0 0 12px #9b5de5;
     }
+    .reviews {
+      margin-top: 10px;
+      margin-bottom: 60px;
+      cursor: none;
+    }
+    .reviews h3 {
+      text-align: left;
+      margin-bottom: 12px;
+      font-size: 1.6rem;
+    }
+    .reviews-row-wrap {
+      position: relative;
+    }
+    .reviews-row {
+    display: flex;
+    gap: 16px;
+    overflow: hidden; /* hide scrollbar */
+    padding: 18px 8px;
+    cursor: none;
+    scroll-snap-type: none; /* disable snapping for smooth scroll */
+    }
+    .reviews-note {
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: left;
+}
+    .reviews-row::-webkit-scrollbar { height: 10px; cursor: none; }
+    .reviews-row::-webkit-scrollbar-thumb { background: #5f3dc4; border-radius: 999px; cursor: none; }
+    .review-card {
+      background: linear-gradient(180deg, #18161f 0%, #201d2a 100%);
+      color: #fff;
+      padding: 16px;
+      border-radius: 12px;
+      min-width: 300px;
+      max-width: 320px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      scroll-snap-align: start;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .review-avatar {
+      flex: 0 0 56px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      border: 2px solid rgba(155,93,229,0.12);
+    }
+    .review-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .review-body {
+      text-align: left;
+      flex: 1 1 auto;
+    }
+    .review-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .review-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.98rem;
+    }
+    .review-stars {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .review-quote {
+      color: #cfc9dd;
+      margin-top: 6px;
+      font-size: 0.98rem;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 520px) {
+      .review-card { min-width: 260px; max-width: 260px; padding: 12px; }
+      .review-avatar { width: 48px; height: 48px; }
+    }
   </style>
 </head>
 <body>
@@ -173,6 +259,91 @@
       <h3>Quick Preview</h3>
       <img src="https://github.com/user-attachments/assets/3831334a-3a46-49d3-bf7d-87e1f4c1ac08" alt="Screenshot of pxslware menu" class="screenshot" />
     </section>
+    <section class="reviews" aria-labelledby="reviews-heading">
+      <h3 id="reviews-heading">What people are saying</h3>
+
+      <div class="reviews-row-wrap">
+        <div class="reviews-row" id="reviewsRow" role="list" aria-label="User reviews, horizontally scrollable">
+          <article class="review-card" role="listitem" aria-labelledby="r1-name">
+            <div class="review-avatar" aria-hidden="true">
+              <img src="https://cdn.discordapp.com/avatars/1060614181969199174/9c40f502dbc228a47d196c4ea29e6d8f.png?size=4096" alt="" />
+            </div>
+            <div class="review-body">
+              <div class="review-meta">
+                <div class="review-name" id="r1-name">figurehead_1</div>
+                <div class="review-stars" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#444" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                </div>
+              </div>
+              <p class="review-quote">"good menu its undetected so its great for lots of things but currently doesnt have a antireport and wallwalk."</p>
+            </div>
+          </article>
+
+          <article class="review-card" role="listitem" aria-labelledby="r2-name">
+            <div class="review-avatar" aria-hidden="true">
+              <img src="https://cdn.discordapp.com/avatars/1122780249860603924/2164be896ec9bb328f89779032892491?size=4096" alt="" />
+            </div>
+            <div class="review-body">
+              <div class="review-meta">
+                <div class="review-name" id="r2-name">La££y</div>
+                <div class="review-stars" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                </div>
+              </div>
+              <p class="review-quote">"+rep I’m have been banned by the ii stupid menu but used this menu on another account very good"</p>
+            </div>
+          </article>
+
+          <article class="review-card" role="listitem" aria-labelledby="r3-name">
+            <div class="review-avatar" aria-hidden="true">
+              <img src="https://cdn.discordapp.com/avatars/1023691777762414642/34ef2187703910f9cbd684bfe93aa1aa?size=4096" alt="" />
+            </div>
+            <div class="review-body">
+              <div class="review-meta">
+                <div class="review-name" id="r3-name">Galaxy</div>
+                <div class="review-stars" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                </div>
+              </div>
+              <p class="review-quote">"+rep Good menu, good mods"</p>
+            </div>
+          </article>
+
+          <article class="review-card" role="listitem" aria-labelledby="r3-name">
+            <div class="review-avatar" aria-hidden="true">
+              <img src="https://cdn.discordapp.com/avatars/1121445561439096892/b3fcd37bdd815116867f93535bec0a49.png?size=4096" alt="" />
+            </div>
+            <div class="review-body">
+              <div class="review-meta">
+                <div class="review-name" id="r3-name">Sunnyy</div>
+                <div class="review-stars" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                </div>
+              </div>
+              <p class="review-quote">"+rep pretty good menu, im gonna review for yt soon"</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="reviews-note">All of these are legitimate reviews taken from my discord server.</div>
+    </section>
     <section class="disclaimer">
       <h3>Disclaimer</h3>
       <p>pxslware is <strong>not open source</strong> and will likely remain so.<br>
@@ -186,5 +357,27 @@
   </footer>
   <script src="/global/snow.js"></script>
   <script src="/global/cursor.js"></script>
+    <script>
+    (function() {
+    const row = document.getElementById('reviewsRow');
+    if (!row) return;
+
+    const cards = Array.from(row.children);
+    cards.forEach(card => row.appendChild(card.cloneNode(true)));
+
+    let scrollPos = 0;
+    const speed = 0.5;
+    const totalWidth = row.scrollWidth / 2;
+
+    function smoothScroll() {
+        scrollPos += speed;
+        if (scrollPos >= totalWidth) scrollPos -= totalWidth;
+        row.scrollLeft = scrollPos;
+        requestAnimationFrame(smoothScroll);
+    }
+
+    smoothScroll();
+    })();
+    </script>
 </body>
 </html>
