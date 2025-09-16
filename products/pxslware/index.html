@@ -266,6 +266,25 @@
         <div class="reviews-row" id="reviewsRow" role="list" aria-label="User reviews, horizontally scrollable">
           <article class="review-card" role="listitem" aria-labelledby="r1-name">
             <div class="review-avatar" aria-hidden="true">
+              <img src="https://avatars.githubusercontent.com/u/151259803?v=4" alt="" />
+            </div>
+            <div class="review-body">
+              <div class="review-meta">
+                <div class="review-name" id="r1-name">Pxsl</div>
+                <div class="review-stars" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                </div>
+              </div>
+              <p class="review-quote">"umm well i made the menu so obviously im gonna say its good"</p>
+            </div>
+          </article>
+
+          <article class="review-card" role="listitem" aria-labelledby="r1-name">
+            <div class="review-avatar" aria-hidden="true">
               <img src="https://cdn.discordapp.com/avatars/1060614181969199174/9c40f502dbc228a47d196c4ea29e6d8f.png?size=4096" alt="" />
             </div>
             <div class="review-body">
@@ -339,6 +358,25 @@
               <p class="review-quote">"+rep pretty good menu, im gonna review for yt soon"</p>
             </div>
           </article>
+
+          <article class="review-card" role="listitem" aria-labelledby="r3-name">
+            <div class="review-avatar" aria-hidden="true">
+              <img src="https://cdn.discordapp.com/avatars/786990115162423336/0c5c77ba414eab6caf347382bdf82f8c.png?size=4096" alt="" />
+            </div>
+            <div class="review-body">
+              <div class="review-meta">
+                <div class="review-name" id="r3-name">Kam1LOfficial</div>
+                <div class="review-stars" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffcc00"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.788 1.402 8.169L12 18.896 4.664 23.167l1.402-8.169L.132 9.21l8.2-1.192z"/></svg>
+                </div>
+              </div>
+              <p class="review-quote">"good but i have something bugged with speedboost beacuse i feel it on when i have it off and theres no wallwalk but it's very good 9/10"</p>
+            </div>
+          </article>
         </div>
       </div>
 
@@ -366,7 +404,7 @@
     cards.forEach(card => row.appendChild(card.cloneNode(true)));
 
     let scrollPos = 0;
-    const speed = 0.5;
+    const speed = 1;
     const totalWidth = row.scrollWidth / 2;
 
     function smoothScroll() {
