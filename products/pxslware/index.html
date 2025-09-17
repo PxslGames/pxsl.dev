@@ -200,6 +200,152 @@
       .review-card { min-width: 260px; max-width: 260px; padding: 12px; }
       .review-avatar { width: 48px; height: 48px; }
     }
+
+    /* Mobile adjustments */
+@media (max-width: 768px) {
+  header {
+    text-align: center;
+    padding: 16px;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  nav a {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  main {
+    padding: 30px 15px 50px;
+  }
+
+  main h2 {
+    font-size: 2.2rem;
+  }
+
+  main p.intro {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .download-btn {
+    padding: 14px 22px;
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .features {
+    grid-template-columns: 1fr; /* stack cards on small screens */
+  }
+
+  section h3 {
+    font-size: 1.3rem;
+  }
+
+  section p, section li {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  nav a {
+    font-size: 0.8rem;
+  }
+
+  main h2 {
+    font-size: 1.8rem;
+  }
+
+  .download-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Even tighter layout for small screens */
+@media (max-width: 768px) {
+  main {
+    padding: 20px 12px 40px;
+    text-align: center;
+  }
+
+  main h2 {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+
+  .intro {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .badges img {
+    display: block;
+    margin: 8px auto;
+    max-width: 95%;
+    height: auto;
+  }
+
+  .download-btn {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 1rem;
+    margin: 20px 0;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .feature-card {
+    padding: 16px;
+    font-size: 0.95rem;
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  section h3 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  section p, section li {
+    font-size: 0.95rem;
+  }
+
+  .screenshot {
+    width: 100%;
+    height: auto;
+    margin: 12px 0;
+  }
+
+  /* Reviews: stack vertically on mobile */
+  .reviews-row {
+    flex-direction: column;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .review-card {
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
   </style>
 </head>
 <body>
