@@ -133,10 +133,10 @@
     .reviews-row {
     display: flex;
     gap: 16px;
-    overflow: hidden; /* hide scrollbar */
+    overflow: hidden;
     padding: 18px 8px;
     cursor: none;
-    scroll-snap-type: none; /* disable snapping for smooth scroll */
+    scroll-snap-type: none;
     }
     .reviews-note {
   color: #888;
@@ -201,7 +201,6 @@
       .review-avatar { width: 48px; height: 48px; }
     }
 
-    /* Mobile adjustments */
 @media (max-width: 768px) {
   header {
     text-align: center;
@@ -211,18 +210,6 @@
   header h1 {
     font-size: 1.6rem;
     margin-bottom: 10px;
-  }
-
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  nav a {
-    font-size: 0.9rem;
-    padding: 6px 10px;
   }
 
   main {
@@ -245,7 +232,7 @@
   }
 
   .features {
-    grid-template-columns: 1fr; /* stack cards on small screens */
+    grid-template-columns: 1fr;
   }
 
   section h3 {
@@ -272,7 +259,6 @@
   }
 }
 
-/* Even tighter layout for small screens */
 @media (max-width: 768px) {
   main {
     padding: 20px 12px 40px;
@@ -333,7 +319,6 @@
     margin: 12px 0;
   }
 
-  /* Reviews: stack vertically on mobile */
   .reviews-row {
     flex-direction: column;
     overflow: visible;
@@ -535,33 +520,38 @@
       However, the code is <strong>deobfuscated</strong> to allow users to verify its contents using tools like <strong>DnSpy</strong>.</p>
       <p><strong>Please do not use or redistribute the code without permission.</strong><br>
       To request permission, contact me via Discord.</p>
+      <p>This product is not affiliated with Gorilla Tag or Another Axiom LLC and is not endorsed or otherwise sponsored by Another Axiom LLC. Portions of the materials contained herein are property of Another Axiom LLC. © 2025 Another Axiom LLC.</p>
     </section>
   </main>
   <footer>
-    built with ✨ by <a href="https://github.com/PxslGames" rel="nofollow noopener noreferrer" target="_blank">Pxsl</a>
+    built with ✨ by <a href="https://github.com/PxslGames" rel="nofollow noopener noreferrer" target="_blank">Pxsl</a> |
+    <a href="/legal/" rel="noopener noreferrer">Privacy & Terms</a>
   </footer>
   <script src="/global/snow.js"></script>
   <script src="/global/cursor.js"></script>
-    <script>
+  <script src="/global/cookiesbanner.js"></script>
+  <script>
     (function() {
-    const row = document.getElementById('reviewsRow');
-    if (!row) return;
-
-    const cards = Array.from(row.children);
-    cards.forEach(card => row.appendChild(card.cloneNode(true)));
-
-    let scrollPos = 0;
-    const speed = 1;
-    const totalWidth = row.scrollWidth / 2;
-
-    function smoothScroll() {
-        scrollPos += speed;
-        if (scrollPos >= totalWidth) scrollPos -= totalWidth;
-        row.scrollLeft = scrollPos;
-        requestAnimationFrame(smoothScroll);
-    }
-
-    smoothScroll();
+        const row = document.getElementById('reviewsRow');
+        if (!row) return;
+    
+        if (window.innerWidth > 768) {
+            const cards = Array.from(row.children);
+            cards.forEach(card => row.appendChild(card.cloneNode(true)));
+    
+            let scrollPos = 0;
+            const speed = 1;
+            const totalWidth = row.scrollWidth / 2;
+    
+            function smoothScroll() {
+                scrollPos += speed;
+                if (scrollPos >= totalWidth) scrollPos -= totalWidth;
+                row.scrollLeft = scrollPos;
+                requestAnimationFrame(smoothScroll);
+            }
+    
+            smoothScroll();
+        }
     })();
     </script>
 </body>
