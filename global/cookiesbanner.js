@@ -33,19 +33,16 @@
     `;
     document.head.appendChild(style);
   
-    // Create the overlay
     const overlay = document.createElement("div");
     overlay.id = "cookiesacceptoverlay";
     overlay.innerHTML = `
       <div>This website uses cookies. Click anywhere to accept.</div>
-      <small style="margin-top: 10px; font-size: 1rem; color: #aaa;">pxsl.dev vibes</small>
+      <small style="margin-top: 10px; font-size: 1rem; color: #aaa;">you can find the legal information in the footer of any page.</small>
     `;
   
-    // Prevent scrolling behind overlay
     document.body.style.overflow = "hidden";
     document.body.appendChild(overlay);
   
-    // When user clicks the overlay
     overlay.addEventListener("click", () => {
       localStorage.setItem(consentKey, "true");
       overlay.remove();

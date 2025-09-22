@@ -71,6 +71,12 @@ main h2 {
   animation-name: none;
 }
 
+main h3 {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  animation-name: none;
+}
+
 main .highlight {
   color: #9b5de5;
   animation: glowText 3s ease-in-out infinite alternate;
@@ -154,6 +160,84 @@ body, button, a, input, textarea, select, label {
   mix-blend-mode: difference;
   transform: translate(-50%, -50%);
   z-index: 9999;
+}
+
+.legal-content {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  background: #161616;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
+  line-height: 1.75;
+  font-size: 1.1rem;
+  color: #ddd;
+  text-align: left;
+  animation: fadeIn 1.2s ease forwards;
+  border: 1px solid #222;
+  box-shadow: 0 0 10px rgba(155, 93, 229, 0.1);
+}
+
+.legal-content h2,
+.legal-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #fff;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.4rem;
+}
+
+.legal-content h3 {
+  font-size: 1.4rem;
+  color: #bbb;
+  border: none;
+  padding-bottom: 0;
+}
+
+.legal-content p {
+  margin-bottom: 1.2rem;
+}
+
+.legal-content ul {
+  list-style: disc;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.legal-content li {
+  margin-bottom: 0.6rem;
+}
+
+.legal-content blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #9b5de5;
+  background-color: rgba(255, 255, 255, 0.05);
+  font-style: italic;
+  color: #ccc;
+}
+
+.legal-content .disclaimer {
+  color: #888;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+}
+
+.legal-content .last-updated {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.legal-content a {
+  color: #9b5de5;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.legal-content a:hover {
+  color: #b890ff;
 }
 
 @keyframes fadeIn {

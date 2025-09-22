@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
 <title>pxsl.dev | drive — access tons of useful and funny files, uploaded by pxsl.</title>
 <link rel="stylesheet" href="/global/style.css" />
 <style>
@@ -62,7 +63,6 @@ const owner = "PxslGames";
 const repo = "pxsl.dev";
 const fileList = document.getElementById("file-list");
 
-// Recursive fetch function
 async function fetchContents(path = "storage", container) {
   try {
     const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
@@ -81,8 +81,6 @@ async function fetchContents(path = "storage", container) {
         const folderName = document.createElement("span");
         folderName.textContent = item.name;
         el.appendChild(folderName);
-
-        // Remove copy button for folders
 
         const subContainer = document.createElement("div");
         subContainer.classList.add("subfolder");
