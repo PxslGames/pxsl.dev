@@ -152,10 +152,9 @@
       }
     });
 
-    // Add single-spacebar-click support
     document.addEventListener('keydown', (e) => {
       if (e.code === 'Space' && !e.repeat && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-        e.preventDefault(); // Prevent scroll
+        e.preventDefault();
         incrementCount();
       }
     });
