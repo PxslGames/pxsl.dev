@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | color grid generator</title>
+  <meta name="description" content="Generate a 16x16 grid of random colors on pxsl.dev." />
+  <link rel="stylesheet" href="/global/style.css" />
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <style>
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 20px 100px;
+      text-align: center;
+    }
+
+    main h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: #9b5de5;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    .color-box {
+      width: 200px;
+      height: 200px;
+      margin: 30px auto;
+      border-radius: 1rem;
+      transition: background 0.4s ease;
+      box-shadow: 0 0 10px #b890ff;
+    }
+
+    .color-values {
+      font-family: monospace;
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+
+    button {
+      background: #9b5de5;
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 20px;
+      font-family: monospace;
+    }
+
+    button:hover {
+      background: #b890ff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 10px #b890ff;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid #222;
+      animation: fadeIn 1.6s ease forwards;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
+    <nav>
+      <a href="/">🏠 | home</a>
+      <a href="/about/">🧃 | about</a>
+      <a href="/tools/">🛠 | tools</a>
+      <a href="/fun/">🎉 | fun</a>
+      <a href="/products/">💻 | products</a>
+      <a href="/drive/">🗄️ | drive</a>
+      <a href="https://pxslgames.github.io/pxsl.old/">💀 | archived</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>color grid <span class="highlight">generator</span></h2>
+    <p>a 16x16 mess of pure rgb chaos</p>
+  
+    <canvas id="gridCanvas" width="160" height="160" style="image-rendering: pixelated; border: 2px solid #444; margin: 20px auto; display: block;"></canvas>
+  
+    <button onclick="generateGrid()">re-roll</button>
+  </main>
+
+  <footer>
+    built with ✨ by <a href="https://github.com/PxslGames" target="_blank">Pxsl</a> |
+    <a href="/legal/">Privacy & Terms</a>
+  </footer>
+
+  <script>
+    const gridcanvas = document.getElementById('gridCanvas');
+    const gridctx = gridcanvas.getContext('2d');
+    const gridSize = 16;
+  
+    function getRandomColor() {
+      return [
+        Math.floor(Math.random() * 256),
+        Math.floor(Math.random() * 256),
+        Math.floor(Math.random() * 256)
+      ];
+    }
+  
+    function generateGrid() {
+      const pixelSize = gridcanvas.width / gridSize;
+  
+      for (let y = 0; y < gridSize; y++) {
+        for (let x = 0; x < gridSize; x++) {
+          const [r, g, b] = getRandomColor();
+          gridctx.fillStyle = `rgb(${r},${g},${b})`;
+          gridctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+        }
+      }
+    }
+    generateGrid();
+  </script>
+  <script src="/global/snow.js"></script>
+  <script src="/global/cursor.js"></script>
+  <script src="/global/cookiesbanner.js"></script>
+</body>
+</html>
