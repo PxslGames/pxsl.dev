@@ -6,22 +6,12 @@ A small corner of the internet where I share my **games**, **tools**, **projects
 ## 🌐 Live Site
 [https://pxsl.dev](https://pxsl.dev)
 
-## 🚀 | Features
-- 🏠 | home
-- 🛠️ | tools
-
-## 🔐 | Privacy
-- I personally collect **no user data**
-- Google Analytics is used for basic traffic insights
+## 🔐 | Privacy, License and legal stuff
+[pxsl.dev/legal](https://pxsl.dev/legal/)
 
 ## 📦 | Tech Stack
-- HTML + CSS
+- HTML + CSS + JS
 - Hosted on GitHub Pages
-
-## 📜 | License
-This website is **open source**, but please don’t just copy it.
-Feel free to learn from the code or use parts of it respectfully.
-If you fork it or remix anything, a little credit goes a long way 👍.
 
 ---
 
