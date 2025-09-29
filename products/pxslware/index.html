@@ -421,7 +421,7 @@
       const row = document.getElementById('reviewsRow');
       if (!row) return;
 
-      fetch('https://pxsl.dev/products/pxslware/reviews.json')
+      fetch('/products/pxslware/reviews.json')
           .then(res => res.json())
           .then(reviews => {
               reviews.forEach(r => {
@@ -467,4 +467,5 @@
 </body>
 
 </html>
+
 
