@@ -97,8 +97,8 @@
       </ul>
     </div>
 
-    <div class="status">
-      Currently working on: <strong>pxslware mod menu</strong> &amp; <strong>pxsl.dev</strong>
+    <div class="status" id="statusText">
+      Loading status...
     </div>
 
     <div class="links">
@@ -244,11 +244,27 @@
   });
   </script>
 
+  <script>
+  fetch('status.json?nocache=${Date.now()}')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch status.json');
+      }
+      return response.json();
+    })
+    .then(data => {
+      const statusEl = document.getElementById('statusText');
+      statusEl.innerHTML = `Currently working on: <strong>${data.status}</strong>`;
+    })
+    .catch(error => {
+      console.error('Error loading status:', error);
+      document.getElementById('statusText').textContent = 'Currently working on: [unable to load status]';
+    });
+  </script>
+
   <script src="/global/snow.js"></script>
   <script src="/global/cursor.js"></script>
   <script src="/global/cookiesbanner.js"></script>
 </body>
 
 </html>
-
-
