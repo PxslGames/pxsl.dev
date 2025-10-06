@@ -6,12 +6,10 @@
   <title>pxsl.dev | live markdown</title>
   <link rel="stylesheet" href="/global/style.css" />
 
-  <!-- Marked.js for Markdown parsing -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
 
   <style>
-    /* Root colors & animations assumed from your global style.css */
     body {
       font-family: monospace;
       background: #0b0b0b;
@@ -130,7 +128,6 @@
       box-shadow: 0 0 8px #3a1f85aa;
     }
 
-    /* Markdown content styles inside preview */
     .preview h1,
     .preview h2,
     .preview h3 {
@@ -197,7 +194,6 @@
       color: #fff;
     }
 
-    /* Animations from your global style */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -223,7 +219,6 @@
       50% { transform: translateY(-6px); }
     }
 
-    /* Responsive */
     @media (max-width: 720px) {
       .markdown-container {
         flex-direction: column;
@@ -290,7 +285,6 @@ Type **Markdown** on the left, and see the *live preview* on the right.
 
     input.addEventListener('input', updatePreview);
 
-    // Initialize preview on load
     updatePreview();
   </script>
 

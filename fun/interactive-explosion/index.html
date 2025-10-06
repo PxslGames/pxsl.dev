@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | click explosion</title>
+  <meta name="description" content="Click anywhere to create an explosion on pxsl.dev."/>
+  <link rel="stylesheet" href="/global/style.css" />
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <style>
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 20px 100px;
+      text-align: center;
+    }
+  
+    main h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+  
+    main h2,
+    main p {
+      user-select: none;
+    }
+
+    header,
+    footer,
+    footer a {
+        user-select: none;
+    }
+  
+    .highlight {
+      color: #f15bb5;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+  
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+  
+    #countDisplay {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #eee;
+      font-family: monospace;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
+    <nav>
+      <a href="https://pxsl.dev/">🏠 | home</a>
+      <a href="/about/">🧃 | about</a>
+      <a href="/tools/">🛠 | tools</a>
+      <a href="/fun/">🎉 | fun</a>
+      <a href="/products/">💻 | products</a>
+      <a href="https://pxslgames.github.io/pxsl.old/">💀 | archived</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>click for <span class="highlight">explosions</span></h2>
+    <p>Click anywhere to create a colorful explosion. Boom!</p>
+  </main>
+
+  <canvas id="explCanvas"></canvas>
+
+  <footer>
+    built with ✨ by <a href="https://github.com/PxslGames" rel="nofollow noopener noreferrer" target="_blank">Pxsl</a> |
+    <a href="/legal/" rel="noopener noreferrer">Privacy & Terms</a>
+  </footer>
+
+  <script>
+    // Setup canvas
+    const explosioncanvas = document.createElement('canvas');
+    explosioncanvas.id = 'explCanvas';
+    explosioncanvas.style.position = 'fixed';
+    explosioncanvas.style.top = '0';
+    explosioncanvas.style.left = '0';
+    explosioncanvas.style.pointerEvents = 'none';
+    explosioncanvas.style.zIndex = '999';
+    document.body.appendChild(explosioncanvas);
+  
+    const exctx = explosioncanvas.getContext('2d');
+    let width = explosioncanvas.width = window.innerWidth;
+    let height = explosioncanvas.height = window.innerHeight;
+  
+    window.addEventListener('resize', () => {
+      width = explosioncanvas.width = window.innerWidth;
+      height = explosioncanvas.height = window.innerHeight;
+    });
+  
+    // Default config
+    const defaultConfig = {
+      particleCount: 30,
+      colorMode: 'random', // 'random' or 'fixed'
+      fixedColor: '#f15bb5',
+      useEmoji: false,
+      emoji: '💥'
+    };
+  
+    // Load config from localStorage or use default
+    let explosionConfig = JSON.parse(localStorage.getItem('explosionConfig')) || defaultConfig;
+  
+    const particles = [];
+  
+    function createExplosion(x, y) {
+      for (let i = 0; i < explosionConfig.particleCount; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          angle: Math.random() * 2 * Math.PI,
+          speed: Math.random() * 5 + 2,
+          radius: Math.random() * 3 + 2,
+          life: 60,
+          color: explosionConfig.colorMode === 'random'
+            ? `hsl(${Math.random() * 360}, 100%, 70%)`
+            : explosionConfig.fixedColor,
+          isEmoji: explosionConfig.useEmoji
+        });
+      }
+    }
+  
+    function updateParticles() {
+      exctx.clearRect(0, 0, width, height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.radius *= 0.96;
+        p.life--;
+  
+        if (p.life <= 0 || p.radius < 0.5) {
+          particles.splice(i, 1);
+        } else {
+          if (p.isEmoji) {
+            exctx.font = `${p.radius * 8}px serif`;
+            exctx.textAlign = 'center';
+            exctx.textBaseline = 'middle';
+            exctx.fillText(explosionConfig.emoji, p.x, p.y);
+          } else {
+            exctx.beginPath();
+            exctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            exctx.fillStyle = p.color;
+            exctx.fill();
+          }
+        }
+      }
+      requestAnimationFrame(updateParticles);
+    }
+  
+    function handleClick(e) {
+      createExplosion(e.clientX, e.clientY);
+    }
+  
+    document.addEventListener('click', handleClick);
+    updateParticles();
+  
+    const ui = document.createElement('div');
+    ui.style.position = 'fixed';
+    ui.style.bottom = '20px';
+    ui.style.right = '20px';
+    ui.style.background = '#111';
+    ui.style.color = '#fff';
+    ui.style.padding = '15px';
+    ui.style.borderRadius = '12px';
+    ui.style.fontFamily = 'monospace';
+    ui.style.fontSize = '14px';
+    ui.style.zIndex = '1000';
+    ui.style.maxWidth = '300px';
+    ui.style.userSelect = 'none';
+  
+    ui.innerHTML = `
+      <label>💥 Particles: <input type="number" id="particleCount" value="${explosionConfig.particleCount}" min="1" max="100" /></label><br><br>
+      <label>🎨 Color:
+        <select id="colorMode">
+          <option value="random" ${explosionConfig.colorMode === 'random' ? 'selected' : ''}>Random</option>
+          <option value="fixed" ${explosionConfig.colorMode === 'fixed' ? 'selected' : ''}>Fixed</option>
+        </select>
+      </label><br>
+      <input type="color" id="fixedColor" value="${explosionConfig.fixedColor}" /><br><br>
+  
+      <label><input type="checkbox" id="useEmoji" ${explosionConfig.useEmoji ? 'checked' : ''}/> Use Emoji</label><br>
+      <input type="text" id="emojiChar" value="${explosionConfig.emoji}" maxlength="2" /><br><br>
+  
+      <button id="exportConfig">📤 Export</button>
+      <button id="importConfig">📥 Import</button>
+    `;
+  
+    document.body.appendChild(ui);
+  
+    function updateConfigFromUI() {
+      explosionConfig.particleCount = parseInt(document.getElementById('particleCount').value);
+      explosionConfig.colorMode = document.getElementById('colorMode').value;
+      explosionConfig.fixedColor = document.getElementById('fixedColor').value;
+      explosionConfig.useEmoji = document.getElementById('useEmoji').checked;
+      explosionConfig.emoji = document.getElementById('emojiChar').value || '💥';
+      localStorage.setItem('explosionConfig', JSON.stringify(explosionConfig));
+    }
+  
+    ui.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', updateConfigFromUI);
+    });
+  
+    document.getElementById('exportConfig').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(explosionConfig, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'explosion-config.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  
+    document.getElementById('importConfig').addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'application/json';
+      input.onchange = e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+          try {
+            const newConfig = JSON.parse(e.target.result);
+            explosionConfig = { ...defaultConfig, ...newConfig };
+            localStorage.setItem('explosionConfig', JSON.stringify(explosionConfig));
+            location.reload();
+          } catch (err) {
+            alert('Invalid config file.');
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    });
+  </script>
+  <script src="/global/snow.js"></script>
+  <script src="/global/cursor.js"></script>
+  <script src="/global/cookiesbanner.js"></script>
+</body>
+</html>
