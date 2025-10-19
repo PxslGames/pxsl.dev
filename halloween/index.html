@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>...</title>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: black;
+    color: white;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+}
+#clickToEnable {
+    text-align: center;
+    font-size: 2rem;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+#flickerText, #volumeText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: red;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+}
+#volumeText {
+    font-size: 1.5rem;
+    top: 70%;
+    color: white;
+}
+#jumpScareImg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 9999;
+    visibility: hidden;
+}
+</style>
+</head>
+<body>
+<div id="clickToEnable">Click anywhere to enable audio</div>
+<div id="flickerText">listen closely...</div>
+<div id="volumeText">Turn up your volume until you hear the faint whispers loudly...</div>
+
+<audio id="whisper" src="gnak.mp3" loop preload="auto"></audio>
+<audio id="jumpScare" src="xdlmp.mp3" preload="auto"></audio>
+
+<img id="jumpScareImg" src="https://i.guim.co.uk/img/media/3fb8435dad0fae0586f0fd8829cad176be214631/96_0_1800_1080/master/1800.jpg?width=1200&quality=85&auto=format&fit=max&s=f2d907105a33769f77e847cbe3d40fd8" alt="Jump Scare">
+
+<script>
+const whisper=document.getElementById('whisper');
+const jumpScareAudio=document.getElementById('jumpScare');
+const jumpScareImg=document.getElementById('jumpScareImg');
+const overlay=document.getElementById('clickToEnable');
+const flickerText=document.getElementById('flickerText');
+const volumeText=document.getElementById('volumeText');
+
+function flicker(){flickerText.style.opacity=Math.random()*0.8+0.2;}
+function triggerJumpScare(){
+    jumpScareImg.style.visibility='visible';
+    jumpScareAudio.play();
+}
+
+document.addEventListener('click',()=>{
+    whisper.volume=0.2;
+    whisper.play();
+    overlay.style.display='none';
+    flickerText.style.opacity=1;
+    setInterval(flicker,150);
+    volumeText.style.opacity=1;
+    const delay=15000+Math.random()*10000;
+    setTimeout(triggerJumpScare,delay);
+});
+
+document.addEventListener('keydown',(e)=>{
+    if((e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='c') || e.key==='F12'){
+        triggerJumpScare();
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('contextmenu',(e)=>{
+    triggerJumpScare();
+    e.preventDefault();
+});
+</script>
+</body>
+</html>
