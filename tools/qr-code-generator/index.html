@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pxsl.dev | QR Code Generator</title>
+  <meta name="description" content="Generate custom QR codes instantly on pxsl.dev." />
+  <link rel="stylesheet" href="/global/style.css" />
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <style>
+    main { 
+        max-width: 700px; 
+        margin: 0 auto; 
+        padding: 80px 20px 100px; 
+        text-align: center; 
+    }
+    h2 { font-size: 3rem; 
+        margin-bottom: 20px; 
+    }
+    .highlight { color: #9b5de5;
+         animation: glowText 3s ease-in-out infinite alternate;
+         }
+    .qr-box { width: 200px; 
+        height: 200px; margin: 30px auto; 
+        border-radius: 1rem; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        background: #111; 
+        box-shadow: 0 0 10px #b890ff; 
+    }
+    input[type="text"] { width: 80%; 
+        padding: 12px; 
+        border-radius: 8px; 
+        border: 1px solid #444; 
+        background: #1a1a1a; 
+        color: #fff; 
+        font-size: 1rem; 
+        font-family: monospace; 
+        margin-top: 20px; 
+        outline: none; 
+        transition: border 0.3s ease; 
+    }
+    input[type="text"]:focus { border: 1px solid #b890ff; 
+        box-shadow: 0 0 8px #b890ff; 
+    }
+    button { background: #9b5de5; 
+        color: #fff; 
+        border: none; 
+        padding: 12px 28px; 
+        border-radius: 999px; 
+        font-weight: bold; 
+        font-size: 1rem; 
+        cursor: pointer; 
+        transition: background 0.3s ease, transform 0.2s ease; 
+        margin-top: 20px; 
+        font-family: monospace; 
+    }
+    button:hover { background: #b890ff; 
+        transform: translateY(-2px); 
+        box-shadow: 0 0 10px #b890ff; 
+    }
+    footer { padding: 20px; 
+        text-align: center; 
+        font-size: 0.8rem; 
+        color: #666; 
+        border-top: 1px solid #222; 
+        animation: fadeIn 1.6s ease forwards; 
+    }
+    footer a { color: #888; 
+        text-decoration: none; 
+    }
+    footer a:hover { color: #fff;
+     }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="https://pxsl.dev">pxsl.dev</a></h1>
+    <nav>
+      <a href="/">🏠 | home</a>
+      <a href="/about/">🧃 | about</a>
+      <a href="/tools/">🛠 | tools</a>
+      <a href="/fun/">🎉 | fun</a>
+      <a href="/products/">💻 | products</a>
+      <a href="/drive/">🗄️ | drive</a>
+      <a href="https://pxslgames.github.io/pxsl.old/">💀 | archived</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>QR <span class="highlight">code</span> generator</h2>
+    <p>Enter text or a link and click generate!</p>
+
+    <input type="text" id="qrInput" placeholder="Enter text or URL..." />
+    <button onclick="generateQR()">Generate QR</button>
+
+    <div class="qr-box" id="qrcode"></div>
+  </main>
+
+  <footer>
+    built with ✨ by <a href="https://github.com/PxslGames" target="_blank">Pxsl</a> |
+    <a href="/legal/">Privacy & Terms</a>
+  </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+    let qr;
+
+    function generateQR(textInput) {
+        const qrBox = document.getElementById("qrcode");
+        qrBox.innerHTML = "";
+
+        let input = textInput || document.getElementById("qrInput").value.trim();
+        if (!input) {
+        qrBox.innerHTML = "<p style='color:#666;'>Enter something first!</p>";
+        return;
+        }
+
+        const newUrl = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(input)}`;
+        window.history.replaceState({}, '', newUrl);
+
+        qr = new QRCode(qrBox, {
+        text: input,
+        width: 200,
+        height: 200,
+        colorDark: "#ffffff",
+        colorLight: "#111111",
+        correctLevel: QRCode.CorrectLevel.H
+        });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get("q");
+        if (q) {
+        document.getElementById("qrInput").value = q;
+        generateQR(q);
+        }
+    });
+    </script>
+
+    <script src="/global/snow.js"></script>
+    <script src="/global/cursor.js"></script>
+    <script src="/global/cookiesbanner.js"></script>
+</body>
+</html>
