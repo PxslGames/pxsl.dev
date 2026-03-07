@@ -1,1 +1,46 @@
-in development, come back soon
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Image Wall</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+}
+
+.gallery{
+    column-count:4;
+    column-gap:0;
+}
+
+img{
+    width:100%;
+    padding:2px;
+    break-inside:avoid;
+}
+</style>
+
+</head>
+<body>
+
+<div class="gallery" id="gallery"></div>
+
+<script>
+fetch("images.txt")
+.then(r => r.text())
+.then(text => {
+    const urls = text.split("\n").map(x => x.trim()).filter(x => x);
+    const gallery = document.getElementById("gallery");
+
+    urls.reverse().forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        gallery.appendChild(img);
+    });
+});
+</script>
+
+</body>
+</html>
