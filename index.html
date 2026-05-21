@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>pxsl.dev</title>
+
+  <meta
+    name="description"
+    content="pxsl.dev is the home of Pxslware, development experiments, terminal tools, web projects, creative coding, and software by Pxsl."
+  />
+
+  <meta
+    name="keywords"
+    content="pxsl, pxsl.dev, pxslware, pxsl projects, pxsl developer, pxsl github, pxsl software, terminal tools, web development"
+  />
+
+  <meta name="author" content="Pxsl" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://pxsl.dev/" />
+
+  <link rel="icon" type="image/png" href="assets/website/favicon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="pxsl.dev" />
+  <meta
+    property="og:description"
+    content="Projects, experiments, software, and development by Pxsl."
+  />
+  <meta property="og:url" content="https://pxsl.dev/" />
+  <meta property="og:image" content="https://pxsl.dev/assets/website/pfp.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="pxsl.dev" />
+  <meta
+    name="twitter:description"
+    content="Projects, experiments, software, and development by Pxsl."
+  />
+  <meta
+    name="twitter:image"
+    content="https://pxsl.dev/assets/website/pfp.png"
+  />
+
+  <meta name="theme-color" content="#1e1b2f" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Pxsl",
+    "url": "https://pxsl.dev",
+    "sameAs": [
+      "https://github.com/PxslGames",
+      "https://youtube.com/@pxsldev1",
+      "https://tiktok.com/@pxsldev1",
+      "https://pxsldev1.itch.io"
+    ],
+    "description": "Developer behind Pxslware, terminal tools, experiments, and web development."
+  }
+  </script>
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<body>
+
+  <div class="bg">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="grid"></div>
+  </div>
+
+  <div class="card-wrap">
+
+    <div class="card" id="card">
+
+      <div class="shine"></div>
+
+      <img class="avatar" src="assets/website/pfp.png" alt="Profile Picture" />
+
+      <h1 class="username">Pxsl</h1>
+
+      <p class="tag">
+        idiot • developer • terminal addict
+      </p>
+
+      <div class="divider"></div>
+
+      <div class="links-container">
+
+        <button class="nav-btn" id="prevPage">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      
+        <div class="links" id="links"></div>
+      
+        <button class="nav-btn" id="nextPage">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      
+      </div>
+
+      <div class="footer">
+        <span id="views">0</span> views
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="intro">
+    <div class="intro-content" id="introText"></div>
+  </div>
+  
+  <div class="music-player" id="musicPlayer">
+  
+    <img id="cover" src="" alt="cover" class="cover"/>
+  
+    <div class="music-info">
+  
+      <div class="song-meta">
+        <span id="songTitle">Loading...</span>
+        <span id="songArtist">Artist</span>
+      </div>
+  
+      <div class="progress-wrap">
+        <span id="currentTime">0:00</span>
+  
+        <input
+          type="range"
+          id="progress"
+          min="0"
+          max="100"
+          value="0"
+        />
+  
+        <span id="duration">0:00</span>
+      </div>
+  
+      <div class="controls">
+        <button id="prev">
+          <i class="fa-solid fa-backward"></i>
+        </button>
+  
+        <button id="playPause">
+          <i class="fa-solid fa-pause"></i>
+        </button>
+  
+        <button id="next">
+          <i class="fa-solid fa-forward"></i>
+        </button>
+  
+        <input
+          type="range"
+          id="volume"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.5"
+        />
+      </div>
+  
+    </div>
+  </div>
+
+  <button id="musicToggle" class="music-toggle">
+    <i class="fa-solid fa-music"></i>
+  </button>
+
+  <div class="swipe-hint">
+    swipe up for projects
+  </div>
+
+  <script src="script.js"></script>
+
+  <div id="transition"></div>
+
+</body>
+</html>
