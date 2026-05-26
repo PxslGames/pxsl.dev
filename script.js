@@ -171,6 +171,12 @@ const playlist = [
     artist: "PHE",
     file: "assets/music/help_urself-PHE.mp3",
     cover: "assets/covers/help_urself-PHE.jpg"
+  },
+  {
+    title: "fav drug <3",
+    artist: "$undown",
+    file: "assets/music/fav_drug.mp3",
+    cover: "assets/covers/fav_drug.jpg"
   }
 ];
 
