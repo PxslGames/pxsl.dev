@@ -911,3 +911,26 @@
       bottom: 70px; /* leaves space for toggle button */
     }
   }
+
+  .footer-links {
+  margin-top: 14px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: rgba(255,255,255,0.45);
+
+  text-decoration: none;
+
+  font-size: 0.8rem;
+
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--purple);
+}
