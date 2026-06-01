@@ -462,3 +462,27 @@ body {
   }
 
 }
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(157, 78, 221, 0.35);
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.2);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: rgba(157, 78, 221, 0.55);
+}
+
+body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(157,78,221,0.35) rgba(255,255,255,0.02);
+}
