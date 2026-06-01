@@ -186,7 +186,14 @@ const playlist = [
     artist: "aldn",
     file: "assets/music/icantbelieveiletyougetaway.mp3",
     cover: "assets/covers/icantbelieveiletyougetaway.jpg"
-  }
+  },
+
+  {
+    title: "Erased",
+    artist: "Harukasuka",
+    file: "assets/music/Erased_Harukasuka.mp3",
+    cover: "assets/covers/Erased_Harukasuka.jpg"
+  },
 ];
 
 const audio = new Audio();
