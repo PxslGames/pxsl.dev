@@ -504,6 +504,18 @@ function goToProjects() {
 
 }
 
+function goToPages() {
+  document.body.style.transition =
+    "transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease";
+
+  document.body.style.transform = "translateY(100px)";
+  document.body.style.opacity = "0";
+
+  setTimeout(() => {
+    goTo("pages");
+  }, 700);
+}
+
 window.addEventListener("touchstart", (e) => {
 
   swipeStartY = e.touches[0].clientY;
@@ -511,7 +523,6 @@ window.addEventListener("touchstart", (e) => {
 });
 
 window.addEventListener("touchend", (e) => {
-
   swipeEndY = e.changedTouches[0].clientY;
 
   const distance = swipeStartY - swipeEndY;
@@ -519,10 +530,16 @@ window.addEventListener("touchend", (e) => {
   const startedNearBottom =
     swipeStartY > window.innerHeight - 140;
 
+  const startedNearTop =
+    swipeStartY < 140;
+
   if (distance > swipeThreshold && startedNearBottom) {
     goToProjects();
   }
 
+  if (distance < -swipeThreshold && startedNearTop) {
+    goToPages();
+  }
 });
 
 let mouseDown = false;
@@ -535,7 +552,6 @@ window.addEventListener("mousedown", (e) => {
 });
 
 window.addEventListener("mouseup", (e) => {
-
   if (!mouseDown) return;
 
   mouseDown = false;
@@ -547,10 +563,16 @@ window.addEventListener("mouseup", (e) => {
   const startedNearBottom =
     swipeStartY > window.innerHeight - 140;
 
+  const startedNearTop =
+    swipeStartY < 140;
+
   if (distance > swipeThreshold && startedNearBottom) {
     goToProjects();
   }
 
+  if (distance < -swipeThreshold && startedNearTop) {
+    goToPages();
+  }
 });
 
 function goTo(url) {

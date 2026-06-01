@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>pxsl.dev</title>
+  <title>pxsl.dev ~ pages</title>
 
   <meta
     name="description"
-    content="pxsl.dev is the home of Pxslware, development experiments, terminal tools, web projects, creative coding, and software by Pxsl."
+    content="Browse pxsl.dev's pages, including, archive pages, and more information."
   />
 
   <meta
@@ -21,7 +21,7 @@
 
   <link rel="canonical" href="https://pxsl.dev/" />
 
-  <link rel="icon" type="image/png" href="assets/website/favicon.png" />
+  <link rel="icon" type="image/png" href="../assets/website/favicon.png" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="pxsl.dev" />
@@ -76,134 +76,98 @@
   }
   </script>
 </head>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-REEV1WS3ZB"></script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+
+  function gtag(){
+    dataLayer.push(arguments);
+  }
+
   gtag('js', new Date());
 
   gtag('config', 'G-REEV1WS3ZB');
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-
 <body>
 
   <div class="bg">
+    <div class="grid"></div>
     <div class="orb one"></div>
     <div class="orb two"></div>
-    <div class="grid"></div>
   </div>
 
-  <div class="swipe-hint-top">
-    swipe down for pages
-  </div>
+  <header class="top">
+    <h1>Pages</h1>
+    <p>view all of pxsl.dev's pages here.</p>
+  </header>
 
-  <div class="card-wrap">
+  <main class="container">
 
-    <div class="card" id="card">
+    <div class="project">
 
-      <div class="shine"></div>
+      <a class="project-link" href="../" target="_blank" rel="noopener noreferrer"></a>
 
-      <img class="avatar" src="assets/website/pfp.png" alt="Profile Picture" />
+      <div class="content">
 
-      <h1 class="username">Pxsl</h1>
+        <h2>pxsl.dev</h2>
 
-      <p class="tag">
-        idiot • developer • terminal addict
-      </p>
+        <p>The home page :)</p>
 
-      <div class="divider"></div>
+        <div class="project-buttons">
 
-      <div class="links-container">
+          <a class="project-btn primary" href="../" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>View Project</span>
+          </a>
 
-        <button class="nav-btn" id="prevPage">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-      
-        <div class="links" id="links"></div>
-      
-        <button class="nav-btn" id="nextPage">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      
-      </div>
+          <a class="project-btn secondary" href="https://github.com/PxslGames/pxsl.dev/" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i>
+            <span>Source Code</span>
+          </a>
 
-      <div class="footer">
-        <span id="views">0</span> views
-      </div>
+        </div>
 
-      <div class="footer-links">
-      <a href="/legal/">Legal</a>
       </div>
 
     </div>
 
-  </div>
+    <div class="project">
 
-  <div id="intro">
-    <div class="intro-content" id="introText"></div>
-  </div>
-  
-  <div class="music-player" id="musicPlayer">
-  
-    <img id="cover" src="" alt="cover" class="cover"/>
-  
-    <div class="music-info">
-  
-      <div class="song-meta">
-        <span id="songTitle">Loading...</span>
-        <span id="songArtist">Artist</span>
+      <a class="project-link" href="https://archive.pxsl.dev/" target="_blank" rel="noopener noreferrer"></a>
+
+      <div class="content">
+
+        <h2>archive.pxsl.dev</h2>
+
+        <p>An archive of all of my old, long standing projects :)</p>
+
+        <div class="project-buttons">
+
+          <a class="project-btn primary" href="https://archive.pxsl.dev/" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>View Project</span>
+          </a>
+
+          <a class="project-btn secondary" href="https://github.com/PxslGames/archive/" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i>
+            <span>Source Code</span>
+          </a>
+
+        </div>
+
       </div>
-  
-      <div class="progress-wrap">
-        <span id="currentTime">0:00</span>
-  
-        <input
-          type="range"
-          id="progress"
-          min="0"
-          max="100"
-          value="0"
-        />
-  
-        <span id="duration">0:00</span>
-      </div>
-  
-      <div class="controls">
-        <button id="prev">
-          <i class="fa-solid fa-backward"></i>
-        </button>
-  
-        <button id="playPause">
-          <i class="fa-solid fa-pause"></i>
-        </button>
-  
-        <button id="next">
-          <i class="fa-solid fa-forward"></i>
-        </button>
-  
-        <input
-          type="range"
-          id="volume"
-          min="0"
-          max="1"
-          step="0.01"
-          value="0.5"
-        />
-      </div>
-  
+
     </div>
-  </div>
 
-  <button id="musicToggle" class="music-toggle">
-    <i class="fa-solid fa-music"></i>
-  </button>
+  </main>
 
-  <div class="swipe-hint">
-    swipe up for projects
-  </div>
+  <a class="back-btn" href="../">
+    <span>← back</span>
+  </a>
 
   <script src="script.js"></script>
 
