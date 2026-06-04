@@ -119,7 +119,7 @@ window.addEventListener("resize", () => {
 });
 
 /* this is the view counter api thing that i made using cloudflare workers, politely, please don't mess around with it :) */
-const API = "https://counter.pxslbusiness.workers.dev";
+const API = "https://example.com/";
 const sessionKey = "viewed_homepage";
 
 function hitViews() {
