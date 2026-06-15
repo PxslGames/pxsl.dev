@@ -166,6 +166,77 @@ introText.textContent =
     Math.floor(Math.random() * introMessages.length)
   ];
 
+const tag = document.querySelector(".tag");
+
+const roles = [
+  "professional idiot • developer • terminal addict",
+  "what is this again?",
+  "i made two spanner software",
+  "clean code? never heard of her",
+  "welcome to the space",
+  "python • unity • c#",
+  "whats a boolean?",
+  "i break stuff and then fix it",
+  "i literally have no idea what im doing",
+  "your friendly neighborhood skidder since 1995",
+  "what the hell is an api",
+  "i put the 'pro' in 'programmer'",
+  "your sentence of the day is...",
+];
+
+let current = "";
+let typing = false;
+
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function typeText(text) {
+  typing = true;
+  tag.textContent = "";
+
+  for (let i = 0; i < text.length; i++) {
+    tag.textContent += text[i];
+    await wait(50);
+  }
+
+  typing = false;
+}
+
+async function deleteText() {
+  typing = true;
+
+  while (tag.textContent.length > 0) {
+    tag.textContent = tag.textContent.slice(0, -1);
+    await wait(30);
+  }
+
+  typing = false;
+}
+
+let last = -1;
+
+async function loop() {
+  while (true) {
+    let index;
+
+    do {
+      index = Math.floor(Math.random() * roles.length);
+    } while (index === last && roles.length > 1);
+
+    last = index;
+
+    const next = roles[index];
+
+    await typeText(next);
+    await wait(3000);
+    await deleteText();
+    await wait(500);
+  }
+}
+
+loop();
+
 const playlist = [
   {
     title: "Ezekiel - help_urself (PHE Edit)",
