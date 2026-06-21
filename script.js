@@ -441,8 +441,14 @@ const linksData = [
   {
     icon: "fa-brands fa-youtube",
     title: "YouTube",
-    sub: "my stupid content (rarely upload)",
-    url: "https://youtube.com/@pxsldev1"
+    sub: "my stupid content",
+    url: "https://youtube.com/@pxsldev"
+  },
+  {
+    icon: "fa-brands fa-youtube",
+    title: "YouTube 2",
+    sub: "my even stupider content",
+    url: "https://youtube.com/@pxslthesecond"
   },
   {
     icon: "fa-brands fa-tiktok",
