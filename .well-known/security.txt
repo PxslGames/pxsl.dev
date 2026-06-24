@@ -1,0 +1,4 @@
+Contact: mailto:pxslbusiness@gmail.com
+Preferred-Languages: en
+Expires: 2027-06-25T00:00:00Z
+Canonical: https://pxsl.dev/.well-known/security.txt
