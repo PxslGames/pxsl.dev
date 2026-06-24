@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    background: #05070a;
+    font-family: monospace;
+    overflow: hidden;
+}
+
+/* HUD */
+#hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 15px;
+
+    background: rgba(10,15,25,0.85);
+    border-bottom: 1px solid #1f2a38;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+
+#title {
+    font-size: 18px;
+    color: #cfe7ff;
+}
+
+#stats {
+    display: flex;
+    gap: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #d7ecff;
+}
+
+#stats div {
+    display: flex;
+    gap: 6px;
+}
+
+#money, #inv {
+    color: white;
+    text-shadow: 0 0 6px rgba(77,163,255,0.4);
+}
+
+#hud button {
+    padding: 7px 14px;
+    border: none;
+    background: #1f6feb;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#hud button:hover {
+    background: #388bfd;
+}
+
+/* RIVER */
+#river {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: linear-gradient(180deg, #0d3b66, #06121f);
+    overflow: hidden;
+}
+
+/* water lines */
+#river::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 100%;
+
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.04),
+        rgba(255,255,255,0.04) 14px,
+        transparent 14px,
+        transparent 28px
+    );
+
+    animation: move 8s linear infinite;
+}
+
+@keyframes move {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* fish */
+.fish {
+    position: absolute;
+    width: 55px;
+    height: 18px;
+
+    background: rgba(0,0,0,0.45);
+    border-radius: 50%;
+
+    cursor: pointer;
+    z-index: 5;
+
+    animation: swim linear forwards;
+}
+
+.fish:hover {
+    transform: scale(1.2);
+    background: rgba(0,0,0,0.6);
+}
+
+@keyframes swim {
+    from { transform: translateX(-80px); }
+    to { transform: translateX(110vw); }
+}
+
+/* reel UI */
+#reelUI {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 320px;
+
+    background: rgba(0,0,0,0.45);
+    color: white;
+    text-align: center;
+
+    padding: 10px;
+    border-radius: 8px;
+
+    display: none;
+}
+
+#bar {
+    width: 100%;
+    height: 10px;
+    background: #1a2635;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+#fill {
+    height: 100%;
+    width: 0%;
+    background: #4da3ff;
+}
+
+/* ---------------- SHOP ---------------- */
+
+#shop {
+    position: fixed;
+    top: 70px;
+    left: 15px;
+
+    width: 260px;
+
+    background: rgba(0,0,0,0.7);
+    border: 1px solid #1f2a38;
+    border-radius: 10px;
+
+    padding: 10px;
+    color: white;
+
+    font-size: 13px;
+    display: none;
+    z-index: 20;
+}
+
+.shopItem {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+    padding: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.shopItem:hover {
+    background: rgba(255,255,255,0.1);
+}

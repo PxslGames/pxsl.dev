@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>pxsl's fishing game</title>
+
+  <meta
+    name="description"
+    content="A chill browser-based fishing game where you catch fish, upgrade your gear, and build wealth through a simple but addictive fishing loop."
+  />
+
+  <meta
+    name="keywords"
+    content="pxsl fish game, fishing simulator, browser fishing game, pxsl.dev fish, idle fishing game, web fishing game, pxsl projects"
+  />
+
+  <meta name="author" content="Pxsl" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- IMPORTANT: page-specific canonical -->
+  <link rel="canonical" href="https://pxsl.dev/fish" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="fish.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="pxsl.dev/fish — Fishing Game" />
+  <meta
+    property="og:description"
+    content="Catch fish, upgrade your rod, and build wealth in this simple browser fishing simulator."
+  />
+  <meta property="og:url" content="https://pxsl.dev/fish" />
+  <meta property="og:image" content="https://pxsl.dev/assets/fish/preview.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="pxsl.dev/fish — Fishing Game" />
+  <meta
+    name="twitter:description"
+    content="A chill browser fishing simulator with upgrades, inventory, and a sell-based economy loop."
+  />
+  <meta
+    name="twitter:image"
+    content="https://pxsl.dev/assets/fish/preview.png"
+  />
+
+  <!-- Theme color (match fishing vibe) -->
+  <meta name="theme-color" content="#0d3b66" />
+
+  <!-- Fonts (optional but consistent with your site style) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REEV1WS3ZB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-REEV1WS3ZB');
+</script>
+
+<body>
+
+<div id="hud">
+    <div id="title">🎣 pxsl's fishing game</div>
+
+    <div id="stats">
+        <div>💰 <span id="money">0</span></div>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+        <button onclick="toggleShop()">Shop</button>
+        <button id="sellBtn" onclick="sellFish()">Sell Fish</button>
+    </div>
+</div>
+
+<div id="shop"></div>
+
+<div id="river"></div>
+
+<div id="reelUI">
+    🔥 spam click to reel!
+    <div id="bar"><div id="fill"></div></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
