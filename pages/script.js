@@ -30,3 +30,9 @@ function goTo(url) {
     window.location.href = url;
     }, 450);
 }
+
+function togglePages() {
+  const card = document.getElementById("masterCard");
+
+  card.classList.toggle("open");
+}
